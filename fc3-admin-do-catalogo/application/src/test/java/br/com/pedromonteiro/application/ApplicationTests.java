@@ -1,10 +1,10 @@
-package br.com.pedromonteiro.fc3admindocatalogo;
+package br.com.pedromonteiro.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Fc3AdminDoCatalogoApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
