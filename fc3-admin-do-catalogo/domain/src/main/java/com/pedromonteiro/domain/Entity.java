@@ -2,6 +2,8 @@ package com.pedromonteiro.domain;
 
 import java.util.Objects;
 
+import com.pedromonteiro.domain.validation.ValidationHandler;
+
 public abstract class Entity<ID extends Identifier> {
     
     protected final ID id;
@@ -10,6 +12,8 @@ public abstract class Entity<ID extends Identifier> {
         Objects.requireNonNull(id, "'id' is required");
         this.id = id;
     }
+
+    public abstract void validate(ValidationHandler handler); 
 
     public ID getId() {
         return id;

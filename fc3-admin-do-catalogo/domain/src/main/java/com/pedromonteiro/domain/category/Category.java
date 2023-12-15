@@ -3,6 +3,7 @@ package com.pedromonteiro.domain.category;
 import java.time.Instant;
 
 import com.pedromonteiro.domain.AggregateRoot;
+import com.pedromonteiro.domain.validation.ValidationHandler;
 
 public class Category extends AggregateRoot<CategoryID> {
     private String name;
@@ -41,6 +42,13 @@ public class Category extends AggregateRoot<CategoryID> {
         return new Category(id, aName, aDescription, isActive, now, now, null);
     }
 
+
+    @Override
+    public void validate(ValidationHandler handler) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'validate'");
+    }
+
     public CategoryID getId() {
         return id;
     }
@@ -75,6 +83,7 @@ public class Category extends AggregateRoot<CategoryID> {
     public Instant getDeletedAt() {
         return deletedAt;
     }
+
 
     
     
