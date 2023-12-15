@@ -3,6 +3,9 @@ package com.pedromonteiro.domain.category;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.pedromonteiro.domain.exceptions.DomainException;
+import com.pedromonteiro.domain.validation.handler.ThrowsValidationHandler;
+
 public class CategoryTest {
     
     @Test
@@ -19,10 +22,10 @@ public class CategoryTest {
 
 
        final var actualException = 
-              Assertions.assertThrows(DomainException.class, actualCategory.validate());
+              Assertions.assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
 
               Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
-              Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).getMessage());
+              Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         
     }
 }

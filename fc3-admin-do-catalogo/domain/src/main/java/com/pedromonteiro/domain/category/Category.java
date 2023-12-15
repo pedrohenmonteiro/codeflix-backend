@@ -45,8 +45,8 @@ public class Category extends AggregateRoot<CategoryID> {
 
     @Override
     public void validate(ValidationHandler handler) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validate'");
+
+        new CategoryValidator(this, handler).validate();
     }
 
     public CategoryID getId() {
