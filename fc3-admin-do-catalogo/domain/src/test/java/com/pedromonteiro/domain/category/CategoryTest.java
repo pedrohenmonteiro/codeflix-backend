@@ -1,12 +1,30 @@
 package com.pedromonteiro.domain.category;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.pedromonteiro.domain.exceptions.DomainException;
 import com.pedromonteiro.domain.validation.handler.ThrowsValidationHandler;
 
 public class CategoryTest {
+
+    @Test
+    public void givenAValidParams_whenCallNewCategory_thenInstantiateACategory() {
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = true;
+
+        final var actualCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+
+        assertNotNull(actualCategory);
+        assertNotNull(actualCategory.getId());
+        assertNotNull(actualCategory.getCreatedAt());
+        assertNotNull(actualCategory.getUpdatedAt());
+        assertEquals(expectedName, actualCategory.getName());
+        assertEquals(expectedDescription, actualCategory.getDescription());
+        assertEquals(expectedIsActive, actualCategory.isActive());
+
+    }
     
     @Test
     void givenAnInvalidNullName_whenCallNewCategoryAndValidate_thenShouldReceiveError() {
@@ -22,10 +40,10 @@ public class CategoryTest {
 
 
        final var actualException = 
-              Assertions.assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
+              assertThrows(DomainException.class, () -> actualCategory.validate(new ThrowsValidationHandler()));
 
-              Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
-              Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+              assertEquals(expectedErrorCount, actualException.getErrors().size());
+              assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         
     }
 }
