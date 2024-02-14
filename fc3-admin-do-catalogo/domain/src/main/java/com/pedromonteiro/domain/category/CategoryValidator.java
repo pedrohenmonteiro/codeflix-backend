@@ -7,6 +7,8 @@ import com.pedromonteiro.domain.validation.Validator;
 public class CategoryValidator extends Validator {
 
     private final Category category;
+    private static final int NAME_MAX_LENGTH = 255;
+    private static final int NAME_MIN_LENGTH = 3;
 
     public CategoryValidator(final Category aCategory, final ValidationHandler aHandler) {
         super(aHandler);
@@ -31,7 +33,7 @@ public class CategoryValidator extends Validator {
             return;
         }
         final int length = name.trim().length();
-        if(length < 3 || length > 255) {
+        if(length < NAME_MIN_LENGTH || length > NAME_MAX_LENGTH) {
             this.validationHandler().append(new Error("'name' must be between 3 and 255"));
         }
     }
