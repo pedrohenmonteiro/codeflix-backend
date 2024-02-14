@@ -9,7 +9,7 @@ public class CategoryID extends Identifier{
     
     private final String value;
 
-    public CategoryID(final String value) {
+    private CategoryID(final String value) {
         Objects.requireNonNull(value);
         this.value = value;
     }
