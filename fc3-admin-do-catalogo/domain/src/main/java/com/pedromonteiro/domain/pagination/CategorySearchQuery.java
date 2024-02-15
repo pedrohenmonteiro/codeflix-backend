@@ -1,4 +1,4 @@
-package com.pedromonteiro.pagination;
+package com.pedromonteiro.domain.pagination;
 
 public record CategorySearchQuery(
     int page,

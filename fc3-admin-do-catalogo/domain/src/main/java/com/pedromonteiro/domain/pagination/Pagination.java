@@ -1,4 +1,4 @@
-package com.pedromonteiro.pagination;
+package com.pedromonteiro.domain.pagination;
 
 import java.util.List;
 

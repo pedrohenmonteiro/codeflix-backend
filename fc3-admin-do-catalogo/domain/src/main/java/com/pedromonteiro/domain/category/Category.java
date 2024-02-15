@@ -4,7 +4,6 @@ import java.time.Instant;
 
 import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.validation.ValidationHandler;
-import com.pedromonteiro.pagination.Pagination;
 
 public class Category extends AggregateRoot<CategoryID> {
     private String name;
