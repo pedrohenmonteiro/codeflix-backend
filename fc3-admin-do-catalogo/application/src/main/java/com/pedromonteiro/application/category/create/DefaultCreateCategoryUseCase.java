@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
+import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.domain.validation.handler.ThrowsValidationHandler;
 
 public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase{
@@ -17,13 +18,15 @@ public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase{
     @Override
     public CreateCategoryOutput execute(final CreateCategoryCommand aCommand) {
 
+        final var notification = Notification.create();
+
         final var aCategory = Category.newCategory(
             aCommand.name(),
             aCommand.description(),
             aCommand.isActive()
         );
 
-        aCategory.validate(new ThrowsValidationHandler());
+        aCategory.validate(notification);
 
         
         return CreateCategoryOutput.from(this.categoryGateway.create(aCategory));
