@@ -3,7 +3,6 @@ package com.pedromonteiro.application.category.update;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import com.pedromonteiro.application.category.create.CreateCategoryOutput;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
@@ -13,7 +12,6 @@ import com.pedromonteiro.domain.validation.handler.Notification;
 
 import io.vavr.API;
 import io.vavr.control.Either;
-import io.vavr.control.Either.Left;
 
 public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
 

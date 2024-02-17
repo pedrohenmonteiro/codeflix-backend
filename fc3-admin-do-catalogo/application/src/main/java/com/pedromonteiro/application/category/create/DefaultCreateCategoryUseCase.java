@@ -5,11 +5,9 @@ import java.util.Objects;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.validation.handler.Notification;
-import com.pedromonteiro.domain.validation.handler.ThrowsValidationHandler;
 
 import io.vavr.API;
 import io.vavr.control.Either;
-import io.vavr.control.Either.Right;
 
 public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase{
 

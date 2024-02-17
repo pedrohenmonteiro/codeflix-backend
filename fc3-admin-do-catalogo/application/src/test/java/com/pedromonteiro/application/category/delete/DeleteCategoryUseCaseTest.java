@@ -1,5 +1,10 @@
 package com.pedromonteiro.application.category.delete;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +15,6 @@ import org.mockito.Mockito;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
-
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 
 public class DeleteCategoryUseCaseTest {
 
