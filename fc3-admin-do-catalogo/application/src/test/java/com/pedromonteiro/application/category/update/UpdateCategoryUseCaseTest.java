@@ -52,7 +52,7 @@ public class UpdateCategoryUseCaseTest {
         );
 
         when(categoryGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(aCategory));
+                .thenReturn(Optional.of(Category.clone(aCategory)));
 
         when(categoryGateway.update(any()))
                 .thenAnswer(returnsFirstArg());

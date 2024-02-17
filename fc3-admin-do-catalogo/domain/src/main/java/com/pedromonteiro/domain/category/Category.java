@@ -6,6 +6,9 @@ import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.validation.ValidationHandler;
 
 public class Category extends AggregateRoot<CategoryID> {
+   
+
+
     private String name;
     private String description;
     private Boolean active;
@@ -43,6 +46,17 @@ public class Category extends AggregateRoot<CategoryID> {
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
     }
 
+    public static Category clone(Category aCategory) {
+        return new Category(
+            aCategory.getId(),
+            aCategory.name,
+            aCategory.description,
+            aCategory.isActive(),
+            aCategory.createdAt,
+            aCategory.updatedAt,
+            aCategory.deletedAt
+        );
+    }
 
     @Override
     public void validate(ValidationHandler handler) {
@@ -117,7 +131,5 @@ public class Category extends AggregateRoot<CategoryID> {
         return deletedAt;
     }
 
-
-    
     
 }
