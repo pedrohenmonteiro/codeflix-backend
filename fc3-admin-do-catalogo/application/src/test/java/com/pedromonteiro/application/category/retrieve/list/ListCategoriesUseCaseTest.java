@@ -1,5 +1,10 @@
 package com.pedromonteiro.application.category.retrieve.list;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,18 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import com.pedromonteiro.application.category.retrieve.get.DefaultGetCategoryByIdUseCase;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
+import com.pedromonteiro.domain.pagination.CategorySearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
 
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
 public class ListCategoriesUseCaseTest {
-    
+
     @InjectMocks
     private DefaultListCategoriesUseCase useCase;
 
@@ -44,7 +44,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedDirection = "asc";
 
         final var aQuery =
-                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
@@ -75,7 +75,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedDirection = "asc";
 
         final var aQuery =
-                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
@@ -105,7 +105,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedErrorMessage = "Gateway error";
 
         final var aQuery =
-                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         when(categoryGateway.findAll(eq(aQuery)))
                 .thenThrow(new IllegalStateException(expectedErrorMessage));
