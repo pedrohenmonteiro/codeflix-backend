@@ -1,4 +1,4 @@
-package com.pedromonteiro.application.category.retrieve;
+package com.pedromonteiro.application.category.retrieve.get;
 
 
 import com.pedromonteiro.application.UseCaseTest;
