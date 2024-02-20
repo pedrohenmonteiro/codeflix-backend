@@ -1,28 +1,25 @@
 package com.pedromonteiro.application.category.retrieve.get;
 
 
-import com.pedromonteiro.application.UseCaseTest;
-import com.pedromonteiro.domain.category.Category;
-import com.pedromonteiro.domain.category.CategoryGateway;
-import com.pedromonteiro.domain.category.CategoryID;
-import com.pedromonteiro.domain.exceptions.DomainException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.Assertions;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import com.pedromonteiro.domain.category.Category;
+import com.pedromonteiro.domain.category.CategoryGateway;
+import com.pedromonteiro.domain.category.CategoryID;
+import com.pedromonteiro.domain.exceptions.DomainException;
     
-    public class GetCategoryByIdUseCaseTest extends UseCaseTest {
+    public class GetCategoryByIdUseCaseTest {
     
         @InjectMocks
         private DefaultGetCategoryByIdUseCase useCase;
@@ -47,7 +44,7 @@ import static org.mockito.Mockito.when;
             final var expectedId = aCategory.getId();
     
             when(categoryGateway.findById(eq(expectedId)))
-                    .thenReturn(Optional.of(aCategory.clone()));
+                    .thenReturn(Optional.of(Category.clone(aCategory)));
     
             final var actualCategory = useCase.execute(expectedId.getValue());
     
