@@ -9,6 +9,7 @@ import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.pagination.CategorySearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
+import com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;
 
 @Service
@@ -21,9 +22,8 @@ public class CategoryMySQLGateway implements CategoryGateway{
     }
 
     @Override
-    public Category create(Category aCategory) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    public Category create(final Category aCategory) {
+        return this.repository.save(CategoryJpaEntity.from(aCategory)).toAggregate();
     }
 
     @Override

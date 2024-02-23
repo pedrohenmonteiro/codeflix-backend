@@ -23,7 +23,7 @@ public class CategoryRepositoryTest {
     @Test
     public void givenAnInvalidNullName_whenCallsSave_shouldReturnError() {
         final var expectedPropertyName = "name";
-        final var expectedMessage = "not-null property references a null or transient value : com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity.name";
+        final var expectedMessage = "not-null property references a null or transient value : com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity.name";
 
         final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
 
@@ -43,7 +43,7 @@ public class CategoryRepositoryTest {
     @Test
     public void givenAnInvalidNullCreatedAt_whenCallsSave_shouldReturnError() {
         final var expectedPropertyName = "createdAt";
-        final var expectedMessage = "not-null property references a null or transient value : com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity.createdAt";
+        final var expectedMessage = "not-null property references a null or transient value : com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity.createdAt";
 
         final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
 
@@ -63,7 +63,7 @@ public class CategoryRepositoryTest {
     @Test
     public void givenAnInvalidNullUpdatedAt_whenCallsSave_shouldReturnError() {
         final var expectedPropertyName = "updatedAt";
-        final var expectedMessage = "not-null property references a null or transient value : com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity.updatedAt";
+        final var expectedMessage = "not-null property references a null or transient value : com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity.updatedAt";
 
         final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
 

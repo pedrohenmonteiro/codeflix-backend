@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity(name = "Category")
-@Table(name = "categories")
+@Table(name = "category")
 public class CategoryJpaEntity {
 
     @Id
