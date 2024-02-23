@@ -36,8 +36,8 @@ public class CategoryMySQLGateway implements CategoryGateway{
 
     @Override
     public Optional<Category> findById(CategoryID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return this.repository.findById(anId.getValue())
+            .map(CategoryJpaEntity::toAggregate);
     }
 
     @Override
