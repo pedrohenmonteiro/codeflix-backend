@@ -1,6 +1,7 @@
 package com.pedromonteiro.domain.category;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.validation.ValidationHandler;
@@ -30,8 +31,8 @@ public class Category extends AggregateRoot<CategoryID> {
         this.name = aName;
         this.description = aDescription;
         this.active = isActive;
-        this.createdAt = aCreationDate;
-        this.updatedAt = aUpdateDate;
+        this.createdAt = Objects.requireNonNull(aCreationDate, "'createdAt' should not be null");
+        this.updatedAt = Objects.requireNonNull(aUpdateDate, "'updatedAt' should not be null");
         this.deletedAt = aDeleteDate;
     }
 
