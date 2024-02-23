@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.validation.ValidationHandler;
 
-public class Category extends AggregateRoot<CategoryID> {
+public class Category extends AggregateRoot<CategoryID> implements Cloneable {
    
 
 
@@ -32,7 +32,7 @@ public class Category extends AggregateRoot<CategoryID> {
         this.description = aDescription;
         this.active = isActive;
         this.createdAt = Objects.requireNonNull(aCreationDate, "'createdAt' should not be null");
-        this.updatedAt = Objects.requireNonNull(aUpdateDate, "'updatedAt' should not be null");
+        this.updatedAt = Objects.requireNonNull(aUpdateDate, "'createdAt' should not be null");
         this.deletedAt = aDeleteDate;
     }
 
@@ -67,7 +67,7 @@ public class Category extends AggregateRoot<CategoryID> {
     );
 }
 
-    public static Category clone(Category aCategory) {
+    public static Category with(Category aCategory) {
         return with(
             aCategory.getId(),
             aCategory.name,
@@ -154,5 +154,12 @@ public class Category extends AggregateRoot<CategoryID> {
         return deletedAt;
     }
 
-    
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }
