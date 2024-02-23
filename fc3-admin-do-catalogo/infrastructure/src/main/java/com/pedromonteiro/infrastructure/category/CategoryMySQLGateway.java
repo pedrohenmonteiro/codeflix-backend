@@ -27,9 +27,11 @@ public class CategoryMySQLGateway implements CategoryGateway{
     }
 
     @Override
-    public void deleteById(CategoryID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    public void deleteById(final CategoryID anId) {
+        final var anIdValue = anId.getValue();
+        if (this.repository.existsById(anIdValue)) {
+            this.repository.deleteById(anIdValue);
+        }
     }
 
     @Override
