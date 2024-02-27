@@ -1,4 +1,4 @@
-package com.pedromonteiro.infrastructure;
+package com.pedromonteiro;
 
 import java.util.Collection;
 

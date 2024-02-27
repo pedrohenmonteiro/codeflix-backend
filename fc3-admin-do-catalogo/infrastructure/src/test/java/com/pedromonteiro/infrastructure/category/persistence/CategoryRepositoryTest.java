@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.pedromonteiro.MySQLGatewayTest;
 import com.pedromonteiro.domain.category.Category;
-import com.pedromonteiro.infrastructure.MySQLGatewayTest;
 
 //Testes para cenários not nullable
 

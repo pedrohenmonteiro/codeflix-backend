@@ -1,4 +1,4 @@
-package com.pedromonteiro.infrastructure.configuration;
+package com.pedromonteiro.infrastructure.configuration.usecases;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +16,11 @@ import com.pedromonteiro.application.category.update.UpdateCategoryUseCase;
 import com.pedromonteiro.domain.category.CategoryGateway;
 
 @Configuration
-public class UseCaseConfig {
+public class CategoryUseCaseConfig {
     
     private final CategoryGateway categoryGateway;
 
-    public UseCaseConfig(CategoryGateway categoryGateway) {
+    public CategoryUseCaseConfig(CategoryGateway categoryGateway) {
         this.categoryGateway = categoryGateway;
     }
 

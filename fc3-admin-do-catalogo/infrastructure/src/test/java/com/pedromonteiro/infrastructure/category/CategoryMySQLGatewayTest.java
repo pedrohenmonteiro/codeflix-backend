@@ -9,10 +9,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.pedromonteiro.MySQLGatewayTest;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.pagination.CategorySearchQuery;
-import com.pedromonteiro.infrastructure.MySQLGatewayTest;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;
 

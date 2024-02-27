@@ -1,4 +1,4 @@
-package com.pedromonteiro.infrastructure;
+package com.pedromonteiro;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;

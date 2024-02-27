@@ -26,6 +26,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":application")) 
     
+    implementation 'io.vavr:vavr:0.10.4'
+
     implementation ('com.mysql:mysql-connector-j:8.3.0')
 
     implementation('com.google.cloud:google-cloud-storage:2.17.1')
