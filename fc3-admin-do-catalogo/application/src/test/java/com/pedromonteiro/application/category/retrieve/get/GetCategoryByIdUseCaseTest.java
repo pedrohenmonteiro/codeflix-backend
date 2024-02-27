@@ -44,7 +44,7 @@ import com.pedromonteiro.domain.exceptions.DomainException;
             final var expectedId = aCategory.getId();
     
             when(categoryGateway.findById(eq(expectedId)))
-                    .thenReturn(Optional.of(Category.clone(aCategory)));
+                    .thenReturn(Optional.of(Category.with(aCategory)));
     
             final var actualCategory = useCase.execute(expectedId.getValue());
     

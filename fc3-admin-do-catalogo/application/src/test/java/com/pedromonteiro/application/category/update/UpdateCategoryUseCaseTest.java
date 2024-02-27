@@ -15,7 +15,6 @@ import static org.mockito.Mockito.when;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,7 +66,7 @@ public class UpdateCategoryUseCaseTest {
         );
 
         when(categoryGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(Category.clone(aCategory)));
+                .thenReturn(Optional.of(Category.with(aCategory)));
 
         when(categoryGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
@@ -108,7 +107,7 @@ public class UpdateCategoryUseCaseTest {
                 UpdateCategoryCommand.with(expectedId.getValue(), expectedName, expectedDescription, expectedIsActive);
 
         when(categoryGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(Category.clone(aCategory)));
+                .thenReturn(Optional.of(Category.with(aCategory)));
 
         final var notification = useCase.execute(aCommand).getLeft();
 
@@ -136,7 +135,7 @@ public class UpdateCategoryUseCaseTest {
         );
 
         when(categoryGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(Category.clone(aCategory)));
+                .thenReturn(Optional.of(Category.with(aCategory)));
 
         when(categoryGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
@@ -183,7 +182,7 @@ public class UpdateCategoryUseCaseTest {
         );
 
         when(categoryGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(Category.clone(aCategory)));
+                .thenReturn(Optional.of(Category.with(aCategory)));
 
         when(categoryGateway.update(any()))
                 .thenThrow(new IllegalStateException(expectedErrorMessage));
