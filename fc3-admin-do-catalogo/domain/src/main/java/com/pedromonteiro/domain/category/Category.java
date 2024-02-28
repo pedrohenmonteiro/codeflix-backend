@@ -1,6 +1,7 @@
 package com.pedromonteiro.domain.category;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import com.pedromonteiro.domain.AggregateRoot;
@@ -42,7 +43,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         final Boolean isActive
     ) {
         final var id = CategoryID.unique();
-        final var now = Instant.now();
+        final var now = Instant.now().truncatedTo(ChronoUnit.MICROS);
         final var deletedAt = isActive ? null : now;
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
     }
