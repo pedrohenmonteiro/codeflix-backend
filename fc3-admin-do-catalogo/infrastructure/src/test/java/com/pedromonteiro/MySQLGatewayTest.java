@@ -17,7 +17,7 @@ import java.lang.annotation.*;
         basePackages = "com.pedromonteiro",
         useDefaultFilters = false,
         includeFilters = {
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MySQLGateway")
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".MySQLGateway")
         }
 )
 @DataJpaTest
