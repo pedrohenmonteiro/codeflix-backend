@@ -7,9 +7,11 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -30,13 +32,17 @@ import com.pedromonteiro.ControllerTest;
 import com.pedromonteiro.application.category.create.CreateCategoryOutput;
 import com.pedromonteiro.application.category.create.CreateCategoryUseCase;
 import com.pedromonteiro.application.category.delete.DeleteCategoryUseCase;
+import com.pedromonteiro.application.category.retrieve.get.CategoryOutput;
 import com.pedromonteiro.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.pedromonteiro.application.category.retrieve.list.ListCategoriesUseCase;
 import com.pedromonteiro.application.category.update.UpdateCategoryUseCase;
+import com.pedromonteiro.domain.category.Category;
+import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.exceptions.DomainException;
 import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.infrastructure.api.CategoryAPI;
 import com.pedromonteiro.infrastructure.category.models.CreateCategoryRequest;
+import com.pedromonteiro.domain.validation.Error;
 
 @ControllerTest(controllers = CategoryAPI.class)
 @SpringBootTest(classes = CategoryAPI.class)
@@ -172,5 +178,44 @@ public class CategoryAPITest {
         ));
     }
 
+
+     @Test
+    public void givenAValidId_whenCallsGetCategory_shouldReturnCategory() throws Exception {
+        // given
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = true;
+
+        final var aCategory =
+                Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+
+        final var expectedId = aCategory.getId().getValue();
+
+        when(getCategoryByIdUseCase.execute(any()))
+                .thenReturn(CategoryOutput.from(aCategory));
+
+        // when
+        final var request = get("/categories/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(request)
+                .andDo(print());
+
+        // then
+        response.andExpect(status().isOk())
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id", equalTo(expectedId)))
+                .andExpect(jsonPath("$.name", equalTo(expectedName)))
+                .andExpect(jsonPath("$.description", equalTo(expectedDescription)))
+                .andExpect(jsonPath("$.is_active", equalTo(expectedIsActive)))
+                .andExpect(jsonPath("$.created_at", equalTo(aCategory.getCreatedAt().toString())))
+                .andExpect(jsonPath("$.updated_at", equalTo(aCategory.getUpdatedAt().toString())))
+                .andExpect(jsonPath("$.deleted_at", equalTo(aCategory.getDeletedAt())));
+
+        verify(getCategoryByIdUseCase, times(1)).execute(eq(expectedId));
+    }
+
+    
    
 }
