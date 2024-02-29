@@ -1,39 +1,35 @@
 package com.pedromonteiro.api;
 
+import static io.vavr.API.Right;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Objects;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
-import java.util.Objects;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Right;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pedromonteiro.ControllerTest;
 import com.pedromonteiro.application.category.create.CreateCategoryOutput;
 import com.pedromonteiro.application.category.create.CreateCategoryUseCase;
 import com.pedromonteiro.application.category.delete.DeleteCategoryUseCase;
-import com.pedromonteiro.application.category.retrieve.get.CategoryOutput;
 import com.pedromonteiro.application.category.retrieve.get.GetCategoryByIdUseCase;
-import com.pedromonteiro.application.category.retrieve.list.CategoryListOutput;
 import com.pedromonteiro.application.category.retrieve.list.ListCategoriesUseCase;
-import com.pedromonteiro.application.category.update.UpdateCategoryOutput;
 import com.pedromonteiro.application.category.update.UpdateCategoryUseCase;
-import com.pedromonteiro.domain.category.Category;
-import com.pedromonteiro.domain.category.CategoryID; 
-import com.pedromonteiro.domain.exceptions.DomainException;
-import com.pedromonteiro.domain.pagination.Pagination;
-import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.infrastructure.api.CategoryAPI;
 import com.pedromonteiro.infrastructure.category.models.CreateCategoryRequest;
 
