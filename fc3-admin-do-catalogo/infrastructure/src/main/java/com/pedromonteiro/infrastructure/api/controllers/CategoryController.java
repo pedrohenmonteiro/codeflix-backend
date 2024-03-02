@@ -93,5 +93,9 @@ public class CategoryController implements CategoryAPI {
         return this.updateCategoryUseCase.execute(aCommand)
                 .fold(onError, onSuccess);
     }
-    
+
+    @Override
+    public void deleteById(final String anId) {
+        this.deleteCategoryUseCase.execute(anId);
+    }
 }
