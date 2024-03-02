@@ -16,6 +16,7 @@ import com.pedromonteiro.application.category.retrieve.list.ListCategoriesUseCas
 import com.pedromonteiro.application.category.update.UpdateCategoryCommand;
 import com.pedromonteiro.application.category.update.UpdateCategoryOutput;
 import com.pedromonteiro.application.category.update.UpdateCategoryUseCase;
+import com.pedromonteiro.domain.pagination.CategorySearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.infrastructure.api.CategoryAPI;
@@ -65,9 +66,14 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public Pagination<?> listCategories(String search, int page, int perPage, String sort, String direction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listCategories'");
+    public Pagination<?> listCategories(
+            final String search,
+            final int page,
+            final int perPage,
+            final String sort,
+            final String direction
+    ) {
+        return listCategoriesUseCase.execute(new CategorySearchQuery(page, perPage, search, sort, direction));
     }
 
     @Override
