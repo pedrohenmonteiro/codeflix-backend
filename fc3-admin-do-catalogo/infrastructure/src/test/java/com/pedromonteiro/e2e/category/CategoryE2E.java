@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.pedromonteiro.E2ETest;
+import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.e2e.MockDsl;
 import com.pedromonteiro.infrastructure.category.models.UpdateCategoryRequest;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;
@@ -261,6 +262,30 @@ public class CategoryE2E implements MockDsl {
         Assertions.assertNotNull(actualCategory.getCreatedAt());
         Assertions.assertNotNull(actualCategory.getUpdatedAt());
         Assertions.assertNull(actualCategory.getDeletedAt());
+    }   
+
+       @Test
+    public void asACatalogAdminIShouldBeAbleToDeleteACategoryByItsIdentifier() throws Exception {
+        Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        final var actualId = givenACategory("Filmes", null, true);
+
+        deleteACategory(actualId)
+                .andExpect(status().isNoContent());
+
+        Assertions.assertFalse(this.categoryRepository.existsById(actualId.getValue()));
+    }
+
+    @Test
+    public void asACatalogAdminIShouldNotSeeAnErrorByDeletingANotExistentCategory() throws Exception {
+        Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        deleteACategory(CategoryID.from("12313"))
+                .andExpect(status().isNoContent());
+
+        Assertions.assertEquals(0, categoryRepository.count());
     }
 
 
