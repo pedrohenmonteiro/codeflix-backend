@@ -1,6 +1,8 @@
 package com.pedromonteiro.infrastructure.category.presenters;
 
 import com.pedromonteiro.application.category.retrieve.get.CategoryOutput;
+import com.pedromonteiro.application.category.retrieve.list.CategoryListOutput;
+import com.pedromonteiro.infrastructure.category.models.CategoryListResponse;
 import com.pedromonteiro.infrastructure.category.models.CategoryResponse;
 
 public interface CategoryApiPresenter {
@@ -13,6 +15,17 @@ public interface CategoryApiPresenter {
                 output.isActive(),
                 output.createdAt(),
                 output.updatedAt(),
+                output.deletedAt()
+        );
+    }
+
+     static CategoryListResponse present(final CategoryListOutput output) {
+        return new CategoryListResponse(
+                output.id().getValue(),
+                output.name(),
+                output.description(),
+                output.isActive(),
+                output.createdAt(),
                 output.deletedAt()
         );
     }

@@ -20,6 +20,7 @@ import com.pedromonteiro.domain.pagination.CategorySearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.infrastructure.api.CategoryAPI;
+import com.pedromonteiro.infrastructure.category.models.CategoryListResponse;
 import com.pedromonteiro.infrastructure.category.models.CategoryResponse;
 import com.pedromonteiro.infrastructure.category.models.CreateCategoryRequest;
 import com.pedromonteiro.infrastructure.category.models.UpdateCategoryRequest;
@@ -66,16 +67,16 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public Pagination<?> listCategories(
+    public Pagination<CategoryListResponse> listCategories(
             final String search,
             final int page,
             final int perPage,
             final String sort,
             final String direction
     ) {
-        return listCategoriesUseCase.execute(new CategorySearchQuery(page, perPage, search, sort, direction));
+        return listCategoriesUseCase.execute(new CategorySearchQuery(page, perPage, search, sort, direction))
+                .map(CategoryApiPresenter::present);
     }
-
     @Override
     public CategoryResponse getById(String id) {
         return CategoryApiPresenter.present(this.getCategoryByIdUseCase.execute(id));
