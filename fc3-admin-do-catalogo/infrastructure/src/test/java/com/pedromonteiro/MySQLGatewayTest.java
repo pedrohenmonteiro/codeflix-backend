@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@ActiveProfiles("test")
+@ActiveProfiles("test-integration")
 @ComponentScan(
         basePackages = "com.pedromonteiro",
         useDefaultFilters = false,
