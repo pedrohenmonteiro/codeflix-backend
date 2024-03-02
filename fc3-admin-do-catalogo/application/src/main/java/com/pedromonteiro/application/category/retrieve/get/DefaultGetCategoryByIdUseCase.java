@@ -3,10 +3,10 @@ package com.pedromonteiro.application.category.retrieve.get;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
-import com.pedromonteiro.domain.exceptions.DomainException;
-import com.pedromonteiro.domain.validation.Error;
+import com.pedromonteiro.domain.exceptions.NotFoundException;
 
 public class DefaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase {
 
@@ -28,7 +28,8 @@ public class DefaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase {
         .orElseThrow(notFound(anCategoryID));
     }
     
-    private Supplier<DomainException> notFound(CategoryID anId) {
-        return () -> DomainException.with(new Error("Category with ID %s was not found".formatted(anId.getValue())));
+  
+    private Supplier<NotFoundException> notFound(final CategoryID anId) {
+        return () -> NotFoundException.with(Category.class, anId);
     }
 }

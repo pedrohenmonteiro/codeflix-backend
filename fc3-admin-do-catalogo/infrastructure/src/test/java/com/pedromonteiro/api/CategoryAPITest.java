@@ -22,7 +22,6 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,13 +38,13 @@ import com.pedromonteiro.application.category.update.UpdateCategoryUseCase;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.exceptions.DomainException;
+import com.pedromonteiro.domain.exceptions.NotFoundException;
+import com.pedromonteiro.domain.validation.Error;
 import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.infrastructure.api.CategoryAPI;
 import com.pedromonteiro.infrastructure.category.models.CreateCategoryRequest;
-import com.pedromonteiro.domain.validation.Error;
 
 @ControllerTest(controllers = CategoryAPI.class)
-@SpringBootTest(classes = CategoryAPI.class)
 public class CategoryAPITest {
 
     @Autowired
@@ -217,5 +216,26 @@ public class CategoryAPITest {
     }
 
     
-   
+    @Test
+    public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() throws Exception {
+        // given
+        final var expectedErrorMessage = "Category with ID 123 was not found";
+        final var expectedId = CategoryID.from("123");
+
+        when(getCategoryByIdUseCase.execute(any()))
+                .thenThrow(NotFoundException.with(Category.class, expectedId));
+
+        // when
+        final var request = get("/categories/{id}", expectedId.getValue())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(request)
+                .andDo(print());
+
+        // then
+        response.andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
+    }
+
 }
