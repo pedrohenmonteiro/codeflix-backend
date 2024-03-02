@@ -1,5 +1,10 @@
 package com.pedromonteiro.e2e.category;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +16,12 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.pedromonteiro.E2ETest;
-import com.pedromonteiro.domain.category.CategoryID;
-import com.pedromonteiro.infrastructure.category.models.CreateCategoryRequest;
+import com.pedromonteiro.e2e.MockDsl;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;
-import com.pedromonteiro.infrastructure.configuration.json.Json;
-
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.util.List;
-import java.util.function.Function;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @E2ETest
 @Testcontainers
-public class CategoryE2E {
+public class CategoryE2E implements MockDsl {
 
     @Autowired
     private MockMvc mvc;
@@ -47,6 +40,10 @@ public class CategoryE2E {
         registry.add("mysql.port", () -> MYSQL_CONTAINER.getMappedPort(3306));
     }
 
+    @Override
+    public MockMvc mvc() {
+        return this.mvc;
+    }
 
     @Test
     public void asACatalogAdminIShouldBeAbleToCreateANewCategoryWithValidValues() throws Exception {
@@ -69,23 +66,49 @@ public class CategoryE2E {
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
 
-    private CategoryID givenACategory(final String aName, final String aDescription, final boolean isActive) throws Exception {
-        final var aRequestBody = new CreateCategoryRequest(aName, aDescription, isActive);
-        final var actualId = this.given("/categories", aRequestBody);
-        return CategoryID.from(actualId);
+     @Test
+    public void asACatalogAdminIShouldBeAbleToNavigateToAllCategories() throws Exception {
+        Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        givenACategory("Filmes", null, true);
+        givenACategory("Documentários", null, true);
+        givenACategory("Séries", null, true);
+
+        listCategories(0, 1)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.current_page", equalTo(0)))
+                .andExpect(jsonPath("$.per_page", equalTo(1)))
+                .andExpect(jsonPath("$.total", equalTo(3)))
+                .andExpect(jsonPath("$.items", hasSize(1)))
+                .andExpect(jsonPath("$.items[0].name", equalTo("Documentários")));
+
+        listCategories(1, 1)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.current_page", equalTo(1)))
+                .andExpect(jsonPath("$.per_page", equalTo(1)))
+                .andExpect(jsonPath("$.total", equalTo(3)))
+                .andExpect(jsonPath("$.items", hasSize(1)))
+                .andExpect(jsonPath("$.items[0].name", equalTo("Filmes")));
+
+        listCategories(2, 1)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.current_page", equalTo(2)))
+                .andExpect(jsonPath("$.per_page", equalTo(1)))
+                .andExpect(jsonPath("$.total", equalTo(3)))
+                .andExpect(jsonPath("$.items", hasSize(1)))
+                .andExpect(jsonPath("$.items[0].name", equalTo("Séries")));
+
+        listCategories(3, 1)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.current_page", equalTo(3)))
+                .andExpect(jsonPath("$.per_page", equalTo(1)))
+                .andExpect(jsonPath("$.total", equalTo(3)))
+                .andExpect(jsonPath("$.items", hasSize(0)));
     }
 
-    private String given(final String url, final Object body) throws Exception {
-        final var aRequest = post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(Json.writeValueAsString(body));
-                
-        final var actualId = this.mvc.perform(aRequest)
-        .andExpect(status().isCreated())
-        .andReturn()
-        .getResponse().getHeader("Location")
-        .replace("%s/".formatted(url), "");
 
-        return actualId;
-    }
+
+
+
 }
