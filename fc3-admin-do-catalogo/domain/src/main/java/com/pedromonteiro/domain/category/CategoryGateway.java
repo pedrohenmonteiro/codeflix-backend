@@ -2,7 +2,7 @@ package com.pedromonteiro.domain.category;
 
 import java.util.Optional;
 
-import com.pedromonteiro.domain.pagination.CategorySearchQuery;
+import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
 
 public interface CategoryGateway {
@@ -15,6 +15,6 @@ public interface CategoryGateway {
 
     Category update(Category aCategory);
 
-    Pagination<Category> findAll(CategorySearchQuery aQuery);
+    Pagination<Category> findAll(SearchQuery aQuery);
     
 }

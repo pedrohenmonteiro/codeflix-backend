@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
-import com.pedromonteiro.domain.pagination.CategorySearchQuery;
+import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;
@@ -51,7 +51,7 @@ public class CategoryMySQLGateway implements CategoryGateway{
     }
 
     @Override
-    public Pagination<Category> findAll(CategorySearchQuery aQuery) {
+    public Pagination<Category> findAll(SearchQuery aQuery) {
         final var page = PageRequest.of(
                 aQuery.page(),
                 aQuery.perPage(),

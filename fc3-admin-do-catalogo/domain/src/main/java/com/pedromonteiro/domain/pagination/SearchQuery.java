@@ -1,6 +1,6 @@
 package com.pedromonteiro.domain.pagination;
 
-public record CategorySearchQuery(
+public record SearchQuery(
     int page,
     int perPage,
     String terms,

@@ -16,7 +16,7 @@ import com.pedromonteiro.application.category.retrieve.list.ListCategoriesUseCas
 import com.pedromonteiro.application.category.update.UpdateCategoryCommand;
 import com.pedromonteiro.application.category.update.UpdateCategoryOutput;
 import com.pedromonteiro.application.category.update.UpdateCategoryUseCase;
-import com.pedromonteiro.domain.pagination.CategorySearchQuery;
+import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.validation.handler.Notification;
 import com.pedromonteiro.infrastructure.api.CategoryAPI;
@@ -74,7 +74,7 @@ public class CategoryController implements CategoryAPI {
             final String sort,
             final String direction
     ) {
-        return listCategoriesUseCase.execute(new CategorySearchQuery(page, perPage, search, sort, direction))
+        return listCategoriesUseCase.execute(new SearchQuery(page, perPage, search, sort, direction))
                 .map(CategoryApiPresenter::present);
     }
     @Override
