@@ -1,6 +1,5 @@
 package com.pedromonteiro.domain.genre;
 
-}
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import com.pedromonteiro.domain.category.CategoryID;
 
-public class GenreTest {
 
+public class GenreTest {
+  
     @Test
     public void givenValidParams_whenCallNewGenre_shouldInstantiateAGenre() {
         final var expectedName = "Ação";
@@ -29,7 +29,7 @@ public class GenreTest {
         Assertions.assertNull(actualGenre.getDeletedAt());
     }
 
-    @Test
+     @Test
     public void givenInvalidNullName_whenCallNewGenreAndValidate_shouldReceiveAError() {
         final String expectedName = null;
         final var expectedIsActive = true;
