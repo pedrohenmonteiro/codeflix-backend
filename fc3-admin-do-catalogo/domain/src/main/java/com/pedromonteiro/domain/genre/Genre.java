@@ -8,6 +8,7 @@ import java.util.List;
 import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.exceptions.NotificationException;
+import com.pedromonteiro.domain.utils.InstantUtils;
 import com.pedromonteiro.domain.validation.ValidationHandler;
 import com.pedromonteiro.domain.validation.handler.Notification;
 
@@ -46,10 +47,9 @@ public class Genre extends AggregateRoot<GenreID> {
         final boolean isActive
     )  {
         final var anId = GenreID.unique();
-        final var now = Instant.now();
+        final var now = InstantUtils.now();
         final var deletedAt = isActive ? null : now;
-        final var list = new ArrayList<CategoryID>();
-        return new Genre(anId, aName, isActive, list, now, now, deletedAt);
+        return new Genre(anId, aName, isActive, new ArrayList<>(), now, now, deletedAt);
     }
 
 
@@ -115,7 +115,19 @@ public class Genre extends AggregateRoot<GenreID> {
         return deletedAt;
     }
 
+    public Genre deactivate() {
+        if (getDeletedAt() == null) {this.deletedAt = InstantUtils.now();}
+        this.active = false;
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
 
+    public Genre activate() {
+        this.deletedAt = null;
+        this.active = true;
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
     
     
 }

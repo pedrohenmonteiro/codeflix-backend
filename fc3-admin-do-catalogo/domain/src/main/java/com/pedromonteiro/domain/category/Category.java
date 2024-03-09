@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import com.pedromonteiro.domain.AggregateRoot;
+import com.pedromonteiro.domain.utils.InstantUtils;
 import com.pedromonteiro.domain.validation.ValidationHandler;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable {
@@ -43,7 +44,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         final Boolean isActive
     ) {
         final var id = CategoryID.unique();
-        final var now = Instant.now().truncatedTo(ChronoUnit.MICROS);
+        final var now = InstantUtils.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
     }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.pedromonteiro.domain.category.CategoryID;
+import com.pedromonteiro.domain.exceptions.NotificationException;
 
 
 public class GenreTest {
