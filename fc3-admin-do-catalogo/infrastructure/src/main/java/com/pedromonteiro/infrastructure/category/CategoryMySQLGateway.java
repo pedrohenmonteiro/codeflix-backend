@@ -46,7 +46,7 @@ public class CategoryMySQLGateway implements CategoryGateway{
     }
 
     @Override
-    public Category update(Category aCategory) {
+    public Category update(final Category aCategory) {
         return save(aCategory);
     }
 
