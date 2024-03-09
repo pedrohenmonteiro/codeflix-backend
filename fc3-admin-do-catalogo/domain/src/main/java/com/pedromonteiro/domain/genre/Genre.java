@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.category.CategoryID;
+import com.pedromonteiro.domain.exceptions.NotificationException;
 import com.pedromonteiro.domain.validation.ValidationHandler;
+import com.pedromonteiro.domain.validation.handler.Notification;
 
 public class Genre extends AggregateRoot<GenreID> {
 
@@ -36,6 +38,7 @@ public class Genre extends AggregateRoot<GenreID> {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
+        selfValidate();
     }
 
     public static Genre newGenre(
@@ -76,7 +79,16 @@ public class Genre extends AggregateRoot<GenreID> {
 
     @Override
     public void validate(ValidationHandler handler) {
+        new GenreValidator(this, handler).validate();
+    }
 
+    private void selfValidate() {
+        final var notification = Notification.create();
+        validate(notification);
+
+        if (notification.hasError()) {
+            throw new NotificationException("Failed to create a Aggregate Genre", notification);
+        }
     }
 
     public String getName() {
