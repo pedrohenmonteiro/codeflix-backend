@@ -30,10 +30,6 @@ public class GenreCategoryJpaEntity {
         return new GenreCategoryJpaEntity(aGenre, aCategoryId);
     }
 
-
-    
-    
-
     public GenreCategoryID getId() {
         return id;
     }
