@@ -20,17 +20,17 @@ public class GenreMySQLGateway implements GenreGateway {
 
     
 
-    public GenreMySQLGateway(GenreRepository genreRepository) {
+    public GenreMySQLGateway(final GenreRepository genreRepository) {
         this.genreRepository = Objects.requireNonNull(genreRepository);
     }
 
     @Override
-    public Genre create(Genre aGenre) {
+    public Genre create(final Genre aGenre) {
         return save(aGenre);
     }
 
     @Override
-    public void deleteById(GenreID anId) {
+    public void deleteById(final GenreID anId) {
         final var aGenreId = anId.getValue();
         if (this.genreRepository.existsById(aGenreId)) {
             this.genreRepository.deleteById(aGenreId);
@@ -38,13 +38,13 @@ public class GenreMySQLGateway implements GenreGateway {
     }
 
     @Override
-    public Optional<Genre> findById(GenreID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    public Optional<Genre> findById(final GenreID anId) {
+       return this.genreRepository.findById(anId.getValue())
+        .map(GenreJpaEntity::toAggregate);
     }
 
     @Override
-    public Genre update(Genre aGenre) {
+    public Genre update(final Genre aGenre) {
         return save(aGenre);
     }
 
