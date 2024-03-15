@@ -3,6 +3,7 @@ package com.pedromonteiro.infrastructure.category;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -88,12 +89,15 @@ public class CategoryMySQLGateway implements CategoryGateway{
         final Specification<CategoryJpaEntity> descriptionLike = like("description", str);
         return nameLike.or(descriptionLike);
     }
-
+    
     @Override
-    public List<CategoryID> existsByIds(final Iterable<CategoryID> ids) {
-
-        //TODO: Implementar quando fazer a camada de infrastructure de Genre
-        return Collections.emptyList();
+    public List<CategoryID> existsByIds(final Iterable<CategoryID> categoryIDs) {
+        final var ids = StreamSupport.stream(categoryIDs.spliterator(), false)
+                .map(CategoryID::getValue)
+                .toList();
+        return this.repository.existsByIds(ids).stream()
+                .map(CategoryID::from)
+                .toList();
     }
     
     
