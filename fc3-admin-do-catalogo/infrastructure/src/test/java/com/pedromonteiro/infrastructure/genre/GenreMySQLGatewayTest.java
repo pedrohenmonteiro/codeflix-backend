@@ -315,6 +315,7 @@ public class GenreMySQLGatewayTest {
         Assertions.assertNotNull(persistedGenre.getDeletedAt());
     }
 
+
     @Test
     public void givenAPrePersistedGenre_whenCallsDeleteById_shouldDeleteGenre() {
         // given
