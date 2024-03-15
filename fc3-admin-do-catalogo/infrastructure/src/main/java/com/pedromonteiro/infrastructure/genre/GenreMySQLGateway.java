@@ -31,8 +31,10 @@ public class GenreMySQLGateway implements GenreGateway {
 
     @Override
     public void deleteById(GenreID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        final var aGenreId = anId.getValue();
+        if (this.genreRepository.existsById(aGenreId)) {
+            this.genreRepository.deleteById(aGenreId);
+        }
     }
 
     @Override
@@ -43,8 +45,7 @@ public class GenreMySQLGateway implements GenreGateway {
 
     @Override
     public Genre update(Genre aGenre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return save(aGenre);
     }
 
     @Override
