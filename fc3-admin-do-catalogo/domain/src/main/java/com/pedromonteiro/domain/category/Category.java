@@ -1,7 +1,6 @@
 package com.pedromonteiro.domain.category;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import com.pedromonteiro.domain.AggregateRoot;
