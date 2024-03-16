@@ -76,13 +76,6 @@ public interface MockDsl {
         return actualId;
     }
 
-    private ResultActions givenResult(final String url, final Object body) throws Exception {
-        final var aRequest = post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(Json.writeValueAsString(body));
-
-        return this.mvc().perform(aRequest);
-    }
 
     private ResultActions list(final String url, final int page, final int perPage, final String search, final String sort, final String direction) throws Exception {
         final var aRequest = get(url)
@@ -110,13 +103,6 @@ public interface MockDsl {
         return Json.readValue(json, clazz);
     }
 
-    private ResultActions retrieveResult(final String url, final Identifier anId) throws Exception {
-        final var aRequest = get(url + anId.getValue())
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON);
-
-        return this.mvc().perform(aRequest);
-    }
 
     private ResultActions delete(final String url, final Identifier anId) throws Exception {
         final var aRequest = MockMvcRequestBuilders.delete(url + anId.getValue())
