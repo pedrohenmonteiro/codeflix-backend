@@ -1,7 +1,7 @@
 package com.pedromonteiro;
 
-import com.github.javafaker.Faker;
 import com.pedromonteiro.domain.castmember.CastMemberType;
+import net.datafaker.Faker;
 
 public final class Fixture {
     
