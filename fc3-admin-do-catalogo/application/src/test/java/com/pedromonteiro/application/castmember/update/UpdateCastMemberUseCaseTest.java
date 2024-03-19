@@ -152,8 +152,6 @@ public class UpdateCastMemberUseCaseTest extends UseCaseTest {
 
     @Test
     public void givenAInvalidId_whenCallsUpdateCastMember_shouldThrowsNotFoundException() {
-        // given
-        final var aMember = CastMember.newMember("vin diesel", CastMemberType.DIRECTOR);
 
         final var expectedId = CastMemberID.from("123");
         final var expectedName = Fixture.name();
