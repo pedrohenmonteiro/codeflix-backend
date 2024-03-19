@@ -10,14 +10,10 @@ import com.pedromonteiro.domain.validation.handler.Notification;
 public final class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase{
 
     private final CastMemberGateway castMemberGateway;
-
-
     
     public DefaultCreateCastMemberUseCase(CastMemberGateway castMemberGateway) {
         this.castMemberGateway = Objects.requireNonNull(castMemberGateway);
     }
-
-
 
     @Override
     public CreateCastMemberOutput execute(final CreateCastMemberCommand aCommand) {
