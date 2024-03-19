@@ -12,7 +12,7 @@ public final class Fixture {
     }
 
 
-    public static final class CastMember {
+    public static final class CastMembers {
         public static CastMemberType type() {
             return FAKER.options().option(CastMemberType.ACTOR, CastMemberType.DIRECTOR);
         }
