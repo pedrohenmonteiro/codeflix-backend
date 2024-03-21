@@ -7,7 +7,7 @@ import com.pedromonteiro.domain.castmember.CastMemberGateway;
 import com.pedromonteiro.domain.exceptions.NotificationException;
 import com.pedromonteiro.domain.validation.handler.Notification;
 
-public final class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase{
+public non-sealed class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase{
 
     private final CastMemberGateway castMemberGateway;
     

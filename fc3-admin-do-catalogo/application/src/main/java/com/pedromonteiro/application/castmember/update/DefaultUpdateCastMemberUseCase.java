@@ -11,7 +11,7 @@ import com.pedromonteiro.domain.exceptions.NotFoundException;
 import com.pedromonteiro.domain.exceptions.NotificationException;
 import com.pedromonteiro.domain.validation.handler.Notification;
 
-public final class DefaultUpdateCastMemberUseCase extends UpdateCastMemberUseCase {
+public non-sealed class DefaultUpdateCastMemberUseCase extends UpdateCastMemberUseCase {
 
     private final CastMemberGateway castMemberGateway;
 
