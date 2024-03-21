@@ -3,6 +3,9 @@ package com.pedromonteiro.infrastructure.castmember;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import com.pedromonteiro.domain.castmember.CastMember;
@@ -12,6 +15,7 @@ import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.infrastructure.castmember.persistence.CastMemberJpaEntity;
 import com.pedromonteiro.infrastructure.castmember.persistence.CastMemberRepository;
+import com.pedromonteiro.infrastructure.utils.SpecificationUtils;
 
 @Component
 public class CastMemberMySQLGateway implements CastMemberGateway {
@@ -50,8 +54,26 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
 
     @Override
     public Pagination<CastMember> findAll(SearchQuery aQuery) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+       final var page = PageRequest.of(
+                aQuery.page(),
+                aQuery.perPage(),
+                Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort())
+        );
+
+        final var where = Optional.ofNullable(aQuery.terms())
+                .filter(str -> !str.isBlank())
+                .map(this::assembleSpecification)
+                .orElse(null);
+
+        final var pageResult =
+                this.castMemberRepository.findAll(where, page);
+
+        return new Pagination<>(
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalElements(),
+                pageResult.map(CastMemberJpaEntity::toAggregate).toList()
+        );
     }
 
     @Override
@@ -65,4 +87,7 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
             .toAggregate();
     }
 
+       private Specification<CastMemberJpaEntity> assembleSpecification(final String terms) {
+        return SpecificationUtils.like("name", terms);
+    }
 }
