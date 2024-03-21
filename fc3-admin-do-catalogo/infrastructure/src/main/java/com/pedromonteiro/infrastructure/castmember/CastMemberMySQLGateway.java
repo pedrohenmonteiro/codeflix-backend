@@ -39,8 +39,8 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
 
     @Override
     public Optional<CastMember> findById(CastMemberID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return this.castMemberRepository.findById(anId.getValue())
+            .map(CastMemberJpaEntity::toAggregate);
     }
 
     @Override
