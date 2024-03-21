@@ -16,6 +16,9 @@ import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.infrastructure.castmember.persistence.CastMemberJpaEntity;
 import com.pedromonteiro.infrastructure.castmember.persistence.CastMemberRepository;
 
+import static com.pedromonteiro.domain.Fixture.name;
+import static com.pedromonteiro.domain.Fixture.CastMembers.type;
+
 @MySQLGatewayTest
 public class CastMemberMySQLGatewayTest {
 

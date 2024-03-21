@@ -1,6 +1,7 @@
 package com.pedromonteiro.infrastructure.category;
 
-import java.util.Collections;
+import static com.pedromonteiro.infrastructure.utils.SpecificationUtils.like;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -14,11 +15,10 @@ import org.springframework.stereotype.Component;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
-import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.domain.pagination.Pagination;
+import com.pedromonteiro.domain.pagination.SearchQuery;
 import com.pedromonteiro.infrastructure.category.persistence.CategoryJpaEntity;
-import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;
-import static com.pedromonteiro.infrastructure.utils.SpecificationUtils.like;;
+import com.pedromonteiro.infrastructure.category.persistence.CategoryRepository;;
 
 @Component
 public class CategoryMySQLGateway implements CategoryGateway{
