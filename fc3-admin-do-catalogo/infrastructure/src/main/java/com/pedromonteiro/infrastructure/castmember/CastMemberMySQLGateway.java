@@ -10,14 +10,23 @@ import com.pedromonteiro.domain.castmember.CastMemberGateway;
 import com.pedromonteiro.domain.castmember.CastMemberID;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.pagination.SearchQuery;
+import com.pedromonteiro.infrastructure.castmember.persistence.CastMemberJpaEntity;
+import com.pedromonteiro.infrastructure.castmember.persistence.CastMemberRepository;
 
 @Component
 public class CastMemberMySQLGateway implements CastMemberGateway {
 
+    private final CastMemberRepository castMemberRepository;
+
+    
+
+    public CastMemberMySQLGateway(CastMemberRepository castMemberRepository) {
+        this.castMemberRepository = castMemberRepository;
+    }
+
     @Override
     public CastMember create(CastMember aCastMember) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        return save(aCastMember);
     }
 
     @Override
@@ -34,8 +43,7 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
 
     @Override
     public CastMember update(CastMember aCastMember) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return save(aCastMember);
     }
 
     @Override
@@ -50,5 +58,9 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
         throw new UnsupportedOperationException("Unimplemented method 'existsByIds'");
     }
 
+    private CastMember save(CastMember aCastMember) {
+        return this.castMemberRepository.save(CastMemberJpaEntity.from(aCastMember))
+            .toAggregate();
+    }
 
 }
