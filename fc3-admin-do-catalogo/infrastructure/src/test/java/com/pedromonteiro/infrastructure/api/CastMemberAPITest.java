@@ -45,9 +45,9 @@ import com.pedromonteiro.domain.castmember.CastMemberType;
 import com.pedromonteiro.domain.exceptions.NotFoundException;
 import com.pedromonteiro.domain.exceptions.NotificationException;
 import com.pedromonteiro.domain.pagination.Pagination;
+import com.pedromonteiro.domain.validation.Error;
 import com.pedromonteiro.infrastructure.castmember.models.CreateCastMemberRequest;
 import com.pedromonteiro.infrastructure.castmember.models.UpdateCastMemberRequest;
-import com.pedromonteiro.domain.validation.Error;
 
 @ControllerTest(controllers = CastMemberAPI.class)
 public class CastMemberAPITest {
