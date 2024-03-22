@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import com.pedromonteiro.Fixture;
 import com.pedromonteiro.application.UseCaseTest;
+import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.castmember.CastMemberGateway;
 import com.pedromonteiro.domain.castmember.CastMemberType;
 import com.pedromonteiro.domain.exceptions.NotificationException;
