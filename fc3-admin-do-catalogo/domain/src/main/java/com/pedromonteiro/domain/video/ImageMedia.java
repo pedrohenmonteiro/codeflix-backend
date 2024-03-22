@@ -20,15 +20,15 @@ public class ImageMedia extends ValueObject {
         return new ImageMedia(checksum, name, location);
     }
 
-    public String getChecksum() {
+    public String checksum() {
         return checksum;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public String getLocation() {
+    public String location() {
         return location;
     }
 
