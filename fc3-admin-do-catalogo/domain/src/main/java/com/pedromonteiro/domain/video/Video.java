@@ -80,11 +80,35 @@ public class Video extends AggregateRoot<VideoID> {
     }
 
     @Override
-    public void validate(ValidationHandler handler) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validate'");
+    public void validate(final ValidationHandler handler) {
+        new VideoValidator(this, handler).validate();
     }
 
+    public Video update(
+        final String aTitle,
+        final String aDescription,
+        final Year aLaunchYear,
+        final double aDuration,
+        final boolean wasOpened,
+        final boolean wasPublished,
+        final Rating aRating,
+        final Set<CategoryID> categories,
+        final Set<GenreID> genres,
+        final Set<CastMemberID> members
+) {
+    this.title = aTitle;
+    this.description = aDescription;
+    this.launchedAt = aLaunchYear;
+    this.duration = aDuration;
+    this.opened = wasOpened;
+    this.published = wasPublished;
+    this.rating = aRating;
+    this.setCategories(categories);
+    this.setGenres(genres);
+    this.setCastMembers(members);
+    this.updatedAt = InstantUtils.now();
+    return this;
+}
 
     public static Video newVideo(
             final String aTitle,
@@ -248,6 +272,18 @@ public class Video extends AggregateRoot<VideoID> {
 
     public Set<CastMemberID> getCastMembers() {
         return castMembers != null ? Collections.unmodifiableSet(castMembers) : Collections.emptySet();
+    }
+
+    private void setCategories(final Set<CategoryID> categories) {
+        this.categories = categories != null ? new HashSet<>(categories) : Collections.emptySet();
+    }
+
+    private void setGenres(final Set<GenreID> genres) {
+        this.genres = genres != null ? new HashSet<>(genres) : Collections.emptySet();
+    }
+
+    private void setCastMembers(final Set<CastMemberID> castMembers) {
+        this.castMembers = castMembers != null ? new HashSet<>(castMembers) : Collections.emptySet();
     }
 
 }
