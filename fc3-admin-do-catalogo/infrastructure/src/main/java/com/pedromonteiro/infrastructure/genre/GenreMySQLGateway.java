@@ -1,7 +1,9 @@
 package com.pedromonteiro.infrastructure.genre;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -75,6 +77,16 @@ public class GenreMySQLGateway implements GenreGateway {
             pageResult.getTotalElements(),
             pageResult.map(GenreJpaEntity::toAggregate).toList()
     );
+    }
+
+        @Override
+    public List<GenreID> existsByIds(final Iterable<GenreID> genreIDS) {
+        final var ids = StreamSupport.stream(genreIDS.spliterator(), false)
+                .map(GenreID::getValue)
+                .toList();
+        return this.genreRepository.existsByIds(ids).stream()
+                .map(GenreID::from)
+                .toList();
     }
     
     private Genre save(final Genre aGenre) {

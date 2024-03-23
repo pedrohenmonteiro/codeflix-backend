@@ -1,5 +1,6 @@
 package com.pedromonteiro.domain.genre;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.pedromonteiro.domain.pagination.Pagination;
@@ -16,5 +17,7 @@ public interface GenreGateway {
     Genre update(Genre aGenre);
 
     Pagination<Genre> findAll(SearchQuery aQuery);
+
+    List<GenreID> existsByIds(Iterable<GenreID> ids);
     
 }

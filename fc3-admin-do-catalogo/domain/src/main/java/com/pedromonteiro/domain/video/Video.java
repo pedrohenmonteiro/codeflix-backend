@@ -206,6 +206,8 @@ public class Video extends AggregateRoot<VideoID> {
         );
     }
 
+    
+
     public String getTitle() {
         return title;
     }
@@ -285,5 +287,63 @@ public class Video extends AggregateRoot<VideoID> {
     private void setCastMembers(final Set<CastMemberID> castMembers) {
         this.castMembers = castMembers != null ? new HashSet<>(castMembers) : Collections.emptySet();
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLaunchedAt(Year launchedAt) {
+        this.launchedAt = launchedAt;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setBanner(ImageMedia banner) {
+        this.banner = banner;
+    }
+
+    public void setThumbnail(ImageMedia thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setThumbnailHalf(ImageMedia thumbnailHalf) {
+        this.thumbnailHalf = thumbnailHalf;
+    }
+
+    public void setTrailer(AudioVideoMedia trailer) {
+        this.trailer = trailer;
+    }
+
+    public void setVideo(AudioVideoMedia video) {
+        this.video = video;
+    }
+
+    
 
 }
