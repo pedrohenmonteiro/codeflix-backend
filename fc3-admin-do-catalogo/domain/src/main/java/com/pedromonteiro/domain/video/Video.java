@@ -147,43 +147,7 @@ public class Video extends AggregateRoot<VideoID> {
     }
 
 
-    public static Video with(
-            final String aTitle,
-            final String aDescription,
-            final Year aLaunchYear,
-            final double aDuration,
-            final boolean wasOpened,
-            final boolean wasPublished,
-            final Rating aRating,
-            final Set<CategoryID> categories,
-            final Set<GenreID> genres,
-            final Set<CastMemberID> members
-    ) {
-        final var now = InstantUtils.now();
-        final var anId = VideoID.unique();
-        return new Video(
-                anId,
-                aTitle,
-                aDescription,
-                aLaunchYear,
-                aDuration,
-                wasOpened,
-                wasPublished,
-                aRating,
-                now,
-                now,
-                null,
-                null,
-                null,
-                null,
-                null,
-                categories,
-                genres,
-                members
-        );
-    }
-
-     public static Video with(final Video aVideo) {
+    public static Video with(final Video aVideo) {
         return new Video(
                 aVideo.getId(),
                 aVideo.getTitle(),
@@ -203,6 +167,48 @@ public class Video extends AggregateRoot<VideoID> {
                 new HashSet<>(aVideo.getCategories()),
                 new HashSet<>(aVideo.getGenres()),
                 new HashSet<>(aVideo.getCastMembers())
+        );
+    }
+
+    public static Video with(
+            final VideoID anId,
+            final String aTitle,
+            final String aDescription,
+            final Year aLaunchYear,
+            final double aDuration,
+            final boolean wasOpened,
+            final boolean wasPublished,
+            final Rating aRating,
+            final Instant aCreationDate,
+            final Instant aUpdateDate,
+            final ImageMedia aBanner,
+            final ImageMedia aThumb,
+            final ImageMedia aThumbHalf,
+            final AudioVideoMedia aTrailer,
+            final AudioVideoMedia aVideo,
+            final Set<CategoryID> categories,
+            final Set<GenreID> genres,
+            final Set<CastMemberID> members
+    ) {
+        return new Video(
+                anId,
+                aTitle,
+                aDescription,
+                aLaunchYear,
+                aDuration,
+                wasOpened,
+                wasPublished,
+                aRating,
+                aCreationDate,
+                aUpdateDate,
+                aBanner,
+                aThumb,
+                aThumbHalf,
+                aTrailer,
+                aVideo,
+                categories,
+                genres,
+                members
         );
     }
 
