@@ -1,7 +1,6 @@
 package com.pedromonteiro.domain.genre;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import com.pedromonteiro.domain.Identifier;
 import com.pedromonteiro.domain.utils.IdUtils;
@@ -22,7 +21,6 @@ public class GenreID extends Identifier {
     public static GenreID from(final String anId) {
         return new GenreID(anId);
     }
-
 
     public String getValue() {
         return value;

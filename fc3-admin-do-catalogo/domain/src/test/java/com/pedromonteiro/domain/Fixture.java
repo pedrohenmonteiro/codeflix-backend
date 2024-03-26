@@ -10,10 +10,13 @@ import com.pedromonteiro.domain.castmember.CastMember;
 import com.pedromonteiro.domain.castmember.CastMemberType;
 import com.pedromonteiro.domain.category.Category;
 import com.pedromonteiro.domain.genre.Genre;
+import com.pedromonteiro.domain.utils.IdUtils;
 import com.pedromonteiro.domain.video.AudioVideoMedia;
 import com.pedromonteiro.domain.video.ImageMedia;
 import com.pedromonteiro.domain.video.Rating;
+import com.pedromonteiro.domain.video.Resource;
 import com.pedromonteiro.domain.video.Video;
+import com.pedromonteiro.domain.video.VideoMediaType;
 
 import net.datafaker.Faker;
 
