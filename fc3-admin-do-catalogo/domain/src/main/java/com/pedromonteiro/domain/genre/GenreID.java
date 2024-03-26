@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.pedromonteiro.domain.Identifier;
+import com.pedromonteiro.domain.utils.IdUtils;
 
 public class GenreID extends Identifier {
     
@@ -15,16 +16,13 @@ public class GenreID extends Identifier {
     }
 
     public static GenreID unique() {
-        return GenreID.from(UUID.randomUUID());
+        return GenreID.from(IdUtils.uuid());
     }
 
     public static GenreID from(final String anId) {
         return new GenreID(anId);
     }
 
-     public static GenreID from(final UUID anId) {
-        return new GenreID(anId.toString().toLowerCase());
-    }
 
     public String getValue() {
         return value;

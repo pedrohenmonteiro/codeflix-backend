@@ -1,10 +1,9 @@
 package com.pedromonteiro.domain.castmember;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import com.pedromonteiro.domain.Identifier;
-import com.pedromonteiro.domain.castmember.CastMemberID;
+import com.pedromonteiro.domain.utils.IdUtils;
 
 public class CastMemberID extends Identifier {
 
@@ -16,16 +15,13 @@ public class CastMemberID extends Identifier {
     }
 
     public static CastMemberID unique() {
-        return CastMemberID.from(UUID.randomUUID());
+        return CastMemberID.from(IdUtils.uuid());
     }
 
     public static CastMemberID from(final String anId) {
         return new CastMemberID(anId);
     }
 
-     public static CastMemberID from(final UUID anId) {
-        return new CastMemberID(anId.toString().toLowerCase());
-    }
 
     public String getValue() {
         return value;

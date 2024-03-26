@@ -1,9 +1,9 @@
 package com.pedromonteiro.domain.category;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import com.pedromonteiro.domain.Identifier;
+import com.pedromonteiro.domain.utils.IdUtils;
 
 public class CategoryID extends Identifier{
     
@@ -15,16 +15,14 @@ public class CategoryID extends Identifier{
     }
 
     public static CategoryID unique() {
-        return CategoryID.from(UUID.randomUUID());
+        return CategoryID.from(IdUtils.uuid());
     }
 
     public static CategoryID from(final String anId) {
         return new CategoryID(anId);
     }
 
-     public static CategoryID from(final UUID anId) {
-        return new CategoryID(anId.toString().toLowerCase());
-    }
+
 
     public String getValue() {
         return value;

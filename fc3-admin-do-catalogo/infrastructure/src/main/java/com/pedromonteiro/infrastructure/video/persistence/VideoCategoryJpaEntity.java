@@ -1,9 +1,15 @@
-package com.fullcycle.admin.catalogo.infrastructure.video.persistence;
+package com.pedromonteiro.infrastructure.video.persistence;
 
-import com.fullcycle.admin.catalogo.domain.category.CategoryID;
-
-import javax.persistence.*;
 import java.util.Objects;
+
+import com.pedromonteiro.domain.category.CategoryID;
+
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 
 @Entity(name = "VideoCategory")
 @Table(name = "videos_categories")
