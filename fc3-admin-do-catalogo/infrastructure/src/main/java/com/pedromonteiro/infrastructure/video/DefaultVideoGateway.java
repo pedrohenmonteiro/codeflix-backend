@@ -3,13 +3,22 @@ package com.pedromonteiro.infrastructure.video;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
+import com.pedromonteiro.domain.Identifier;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.video.Video;
 import com.pedromonteiro.domain.video.VideoGateway;
 import com.pedromonteiro.domain.video.VideoID;
+import com.pedromonteiro.domain.video.VideoPreview;
 import com.pedromonteiro.domain.video.VideoSearchQuery;
+import com.pedromonteiro.infrastructure.utils.SqlUtils;
 import com.pedromonteiro.infrastructure.video.persistence.VideoJpaEntity;
 import com.pedromonteiro.infrastructure.video.persistence.VideoRepository;
+
+import static com.pedromonteiro.domain.utils.CollectionUtils.mapTo;
+import static com.pedromonteiro.domain.utils.CollectionUtils.nullIfEmpty;
 
 import jakarta.transaction.Transactional;
 
@@ -51,10 +60,28 @@ public class DefaultVideoGateway implements VideoGateway {
         return save(aVideo);
     }
 
-    @Override
-    public Pagination<Video> findAll(VideoSearchQuery aQuery) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+     @Override
+    public Pagination<VideoPreview> findAll(final VideoSearchQuery aQuery) {
+        final var page = PageRequest.of(
+                aQuery.page(),
+                aQuery.perPage(),
+                Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort())
+        );
+
+        final var actualPage = this.videoRepository.findAll(
+                SqlUtils.like(SqlUtils.upper(aQuery.terms())),
+                nullIfEmpty(mapTo(aQuery.castMembers(), Identifier::getValue)),
+                nullIfEmpty(mapTo(aQuery.categories(), Identifier::getValue)),
+                nullIfEmpty(mapTo(aQuery.genres(), Identifier::getValue)),
+                page
+        );
+
+        return new Pagination<>(
+                actualPage.getNumber(),
+                actualPage.getSize(),
+                actualPage.getTotalElements(),
+                actualPage.toList()
+        );
     }
  
     
