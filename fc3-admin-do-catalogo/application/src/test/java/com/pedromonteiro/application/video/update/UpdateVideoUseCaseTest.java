@@ -22,6 +22,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.pedromonteiro.application.UseCaseTest;
+import com.pedromonteiro.application.video.update.DefaultUpdateVideoUseCase;
+import com.pedromonteiro.application.video.update.UpdateVideoCommand;
 import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.castmember.CastMemberGateway;
 import com.pedromonteiro.domain.castmember.CastMemberID;

@@ -18,6 +18,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.pedromonteiro.application.UseCaseTest;
+import com.pedromonteiro.application.video.media.update.DefaultUpdateMediaStatusUseCase;
+import com.pedromonteiro.application.video.media.update.UpdateMediaStatusCommand;
 import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.video.MediaStatus;
 import com.pedromonteiro.domain.video.Video;
