@@ -31,8 +31,11 @@ public class DefaultVideoGateway implements VideoGateway {
 
     @Override
     public void deleteById(VideoID anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        final var aVideoId = anId.getValue();
+
+        if (this.videoRepository.existsById(aVideoId)) {
+            this.videoRepository.deleteById(aVideoId);
+        }
     }
 
     @Override
