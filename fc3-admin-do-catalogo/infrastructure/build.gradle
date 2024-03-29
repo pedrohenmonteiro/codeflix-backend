@@ -24,7 +24,9 @@ repositories {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":application")) 
+    implementation(project(":application"))
+    implementation ('com.google.cloud:google-cloud-storage:2.36.1')
+    implementation ('com.google.guava:guava:33.1.0-jre') 
     
     implementation 'io.vavr:vavr:0.10.4'
 
