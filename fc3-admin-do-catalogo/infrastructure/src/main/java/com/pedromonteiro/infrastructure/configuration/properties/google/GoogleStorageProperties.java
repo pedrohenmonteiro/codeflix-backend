@@ -1,7 +1,12 @@
 package com.pedromonteiro.infrastructure.configuration.properties.google;
 
-public class GoogleStorageProperties {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 
+public class GoogleStorageProperties implements InitializingBean {
+
+    private static final Logger log = LoggerFactory.getLogger(GoogleStorageProperties.class);
     private String bucket;
     private int connectTimeout;
     private int readTimeout;
@@ -75,4 +80,18 @@ public class GoogleStorageProperties {
         this.retryMaxDelay = retryMaxDelay;
         return this;
     }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+     log.debug(toString());
+    }
+
+    @Override
+    public String toString() {
+        return "GoogleStorageProperties [bucket=" + bucket + ", connectTimeout=" + connectTimeout + ", readTimeout="
+                + readTimeout + ", retryDelay=" + retryDelay + ", retryMaxDelay=" + retryMaxDelay
+                + ", retryMaxAttempts=" + retryMaxAttempts + ", retryMultiplier=" + retryMultiplier + "]";
+    }
+
+    
 }

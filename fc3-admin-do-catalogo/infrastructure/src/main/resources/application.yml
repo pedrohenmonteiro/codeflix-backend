@@ -43,8 +43,8 @@ google:
   cloud:
     storage:
       catalogo-videos:
-        bucket: fc3_videos
-        connect-timeout: 250
+        bucket: 01_fc3_catalogo_videos
+        connect-timeout: 500
         read-timeout: 5000
         retry-delay: 50
         retry-max-delay: 50
