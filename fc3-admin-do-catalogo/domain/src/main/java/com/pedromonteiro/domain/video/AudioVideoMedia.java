@@ -3,6 +3,7 @@ package com.pedromonteiro.domain.video;
 import java.util.Objects;
 
 import com.pedromonteiro.domain.ValueObject;
+import com.pedromonteiro.domain.utils.IdUtils;
 
 public class AudioVideoMedia extends ValueObject {
 
@@ -24,6 +25,14 @@ public class AudioVideoMedia extends ValueObject {
         this.rawLocation = Objects.requireNonNull(rawLocation);
         this.encodedLocation = Objects.requireNonNull(encodedLocation);
         this.status = Objects.requireNonNull(status);
+    }
+
+       public static AudioVideoMedia with(
+            final String checksum,
+            final String name,
+            final String rawLocation
+    ) {
+        return new AudioVideoMedia(checksum, name, rawLocation, "", MediaStatus.PENDING);
     }
 
     public static AudioVideoMedia with(
