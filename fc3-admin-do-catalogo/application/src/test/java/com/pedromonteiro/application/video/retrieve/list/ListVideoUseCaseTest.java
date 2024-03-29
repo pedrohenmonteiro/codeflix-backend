@@ -17,11 +17,10 @@ import org.mockito.Mockito;
 
 import com.pedromonteiro.application.UseCaseTest;
 import com.pedromonteiro.application.genre.retrieve.list.GenreListOutput;
-import com.pedromonteiro.application.video.retrieve.list.DefaultListVideosUseCase;
-import com.pedromonteiro.application.video.retrieve.list.VideoListOutput;
 import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.video.VideoGateway;
+import com.pedromonteiro.domain.video.VideoPreview;
 import com.pedromonteiro.domain.video.VideoSearchQuery;
 
 public class ListVideoUseCaseTest extends UseCaseTest {

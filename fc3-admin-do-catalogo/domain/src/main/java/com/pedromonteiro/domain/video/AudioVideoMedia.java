@@ -7,6 +7,7 @@ import com.pedromonteiro.domain.utils.IdUtils;
 
 public class AudioVideoMedia extends ValueObject {
 
+    private final String id;
     private final String checksum;
     private final String name;
     private final String rawLocation;
@@ -14,12 +15,14 @@ public class AudioVideoMedia extends ValueObject {
     private final MediaStatus status;
 
     private AudioVideoMedia(
+            final String id,
             final String checksum,
             final String name,
             final String rawLocation,
             final String encodedLocation,
             final MediaStatus status
     ) {
+        this.id = Objects.requireNonNull(id);
         this.checksum = Objects.requireNonNull(checksum);
         this.name = Objects.requireNonNull(name);
         this.rawLocation = Objects.requireNonNull(rawLocation);
@@ -27,22 +30,27 @@ public class AudioVideoMedia extends ValueObject {
         this.status = Objects.requireNonNull(status);
     }
 
-       public static AudioVideoMedia with(
+    public static AudioVideoMedia with(
             final String checksum,
             final String name,
             final String rawLocation
     ) {
-        return new AudioVideoMedia(checksum, name, rawLocation, "", MediaStatus.PENDING);
+        return new AudioVideoMedia(IdUtils.uuid(), checksum, name, rawLocation, "", MediaStatus.PENDING);
     }
 
     public static AudioVideoMedia with(
+            final String id,
             final String checksum,
             final String name,
             final String rawLocation,
             final String encodedLocation,
             final MediaStatus status
     ) {
-        return new AudioVideoMedia(checksum, name, rawLocation, encodedLocation, status);
+        return new AudioVideoMedia(id, checksum, name, rawLocation, encodedLocation, status);
+    }
+
+    public String id() {
+        return id;
     }
 
     public String checksum() {
@@ -66,35 +74,41 @@ public class AudioVideoMedia extends ValueObject {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((checksum == null) ? 0 : checksum.hashCode());
-        result = prime * result + ((rawLocation == null) ? 0 : rawLocation.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final AudioVideoMedia that = (AudioVideoMedia) o;
+        return Objects.equals(checksum, that.checksum) && Objects.equals(rawLocation, that.rawLocation);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        AudioVideoMedia other = (AudioVideoMedia) obj;
-        if (checksum == null) {
-            if (other.checksum != null)
-                return false;
-        } else if (!checksum.equals(other.checksum))
-            return false;
-        if (rawLocation == null) {
-            if (other.rawLocation != null)
-                return false;
-        } else if (!rawLocation.equals(other.rawLocation))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(checksum, rawLocation);
     }
 
-    
+    public AudioVideoMedia processing() {
+        return AudioVideoMedia.with(
+                id(),
+                checksum(),
+                name(),
+                rawLocation(),
+                encodedLocation(),
+                MediaStatus.PROCESSING
+        );
+    }
+
+    public AudioVideoMedia completed(final String encodedPath) {
+        return AudioVideoMedia.with(
+                id(),
+                checksum(),
+                name(),
+                rawLocation(),
+                encodedPath,
+                MediaStatus.COMPLETED
+        );
+    }
+
+    public boolean isPendingEncode() {
+        return MediaStatus.PENDING == this.status;
+    }
 }

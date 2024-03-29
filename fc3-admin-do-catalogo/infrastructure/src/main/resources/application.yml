@@ -94,3 +94,9 @@ X2NlcnRfdXJsIjogImh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3JvYm90L3YxL21ldGFkYXRh
 L3g1MDkvZmMzLW1zLWFkbWluLWRvLWNhdGFsb2dvJTQwZmMzLWNvZGVmbGl4LTQxODUwMy5pYW0u
 Z3NlcnZpY2VhY2NvdW50LmNvbSIsCiAgInVuaXZlcnNlX2RvbWFpbiI6ICJnb29nbGVhcGlzLmNv
 bSIKfQo=
+
+
+storage:
+  catalogo-videos:
+    filename-pattern: type-{type}
+    location-pattern: videoId-{videoId}

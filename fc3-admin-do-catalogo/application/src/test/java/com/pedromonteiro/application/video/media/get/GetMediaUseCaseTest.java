@@ -12,10 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.pedromonteiro.application.UseCaseTest;
-import com.pedromonteiro.application.video.media.get.DefaultGetMediaUseCase;
-import com.pedromonteiro.application.video.media.get.GetMediaCommand;
 import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.exceptions.NotFoundException;
+import com.pedromonteiro.domain.video.MediaResourceGateway;
 import com.pedromonteiro.domain.video.VideoID;
 
 public class GetMediaUseCaseTest extends UseCaseTest {

@@ -17,12 +17,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.pedromonteiro.application.UseCaseTest;
-import com.pedromonteiro.application.video.retrieve.get.DefaultGetVideoByIdUseCase;
 import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.exceptions.NotFoundException;
 import com.pedromonteiro.domain.video.Video;
 import com.pedromonteiro.domain.video.VideoGateway;
 import com.pedromonteiro.domain.video.VideoID;
+import com.pedromonteiro.domain.video.VideoMediaType;
 
 public class GetVideoByIdUseCaseTest extends UseCaseTest {
 
