@@ -1,12 +1,16 @@
 package com.pedromonteiro.domain;
 
+import java.util.List;
 
-public abstract class AggregateRoot<ID extends Identifier> extends Entity<ID>{
+import com.pedromonteiro.domain.event.DomainEvent;
 
-    public AggregateRoot(final ID id) {
+public abstract class AggregateRoot<ID extends Identifier> extends Entity<ID> {
+
+    protected AggregateRoot(final ID id) {
         super(id);
     }
 
-  
-    
+    protected AggregateRoot(final ID id, final List<DomainEvent> events) {
+        super(id, events);
+    }
 }

@@ -4,12 +4,14 @@ import java.time.Instant;
 import java.time.Year;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import com.pedromonteiro.domain.AggregateRoot;
 import com.pedromonteiro.domain.castmember.CastMemberID;
 import com.pedromonteiro.domain.category.CategoryID;
+import com.pedromonteiro.domain.event.DomainEvent;
 import com.pedromonteiro.domain.genre.GenreID;
 import com.pedromonteiro.domain.utils.InstantUtils;
 import com.pedromonteiro.domain.validation.ValidationHandler;
@@ -57,9 +59,10 @@ public class Video extends AggregateRoot<VideoID> {
             final AudioVideoMedia aVideo,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> members
+            final Set<CastMemberID> members,
+            final List<DomainEvent> domainEvents
     ) {
-        super(anId);
+        super(anId, domainEvents);
         this.title = aTitle;
         this.description = aDescription;
         this.launchedAt = aLaunchYear;
@@ -142,7 +145,8 @@ public class Video extends AggregateRoot<VideoID> {
                 null,
                 categories,
                 genres,
-                members
+                members,
+                null
         );
     }
 
@@ -166,7 +170,8 @@ public class Video extends AggregateRoot<VideoID> {
                 aVideo.getVideo().orElse(null),
                 new HashSet<>(aVideo.getCategories()),
                 new HashSet<>(aVideo.getGenres()),
-                new HashSet<>(aVideo.getCastMembers())
+                new HashSet<>(aVideo.getCastMembers()),
+                aVideo.getDomainEvents()
         );
     }
 
@@ -208,7 +213,8 @@ public class Video extends AggregateRoot<VideoID> {
                 aVideo,
                 categories,
                 genres,
-                members
+                members,
+                null
         );
     }
 
