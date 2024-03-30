@@ -10,6 +10,7 @@ import com.pedromonteiro.infrastructure.configuration.annotations.VideoCreatedQu
 import com.pedromonteiro.infrastructure.configuration.properties.amqp.QueueProperties;
 import com.pedromonteiro.infrastructure.services.EventService;
 import com.pedromonteiro.infrastructure.services.impl.RabbitEventService;
+import com.pedromonteiro.infrastructure.services.local.InMemoryEventService;
 
 @Configuration
 public class EventConfig {
