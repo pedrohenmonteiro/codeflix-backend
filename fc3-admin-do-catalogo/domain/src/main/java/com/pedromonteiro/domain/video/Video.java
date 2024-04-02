@@ -336,34 +336,46 @@ public class Video extends AggregateRoot<VideoID> {
         this.updatedAt = updatedAt;
     }
 
-    public void setBanner(ImageMedia banner) {
+    public Video updateBannerMedia(final ImageMedia banner) {
         this.banner = banner;
+        this.updatedAt = InstantUtils.now();
+        return this;
     }
 
-    public void setThumbnail(ImageMedia thumbnail) {
+    public Video updateThumbnailMedia(final ImageMedia thumbnail) {
         this.thumbnail = thumbnail;
+        this.updatedAt = InstantUtils.now();
+        return this;
     }
 
-    public void setThumbnailHalf(ImageMedia thumbnailHalf) {
+    public Video updateThumbnailHalfMedia(final ImageMedia thumbnailHalf) {
         this.thumbnailHalf = thumbnailHalf;
+        this.updatedAt = InstantUtils.now();
+        return this;
     }
 
-    public void setTrailer(AudioVideoMedia trailer) {
+    public Video updateTrailerMedia(final AudioVideoMedia trailer) {
         this.trailer = trailer;
+        this.updatedAt = InstantUtils.now();
+        onAudioVideoMediaUpdated(trailer);
+        return this;
     }
 
-    public void setVideo(AudioVideoMedia video) {
+    public Video updateVideoMedia(final AudioVideoMedia video) {
         this.video = video;
+        this.updatedAt = InstantUtils.now();
+        onAudioVideoMediaUpdated(video);
+        return this;
     }
 
 
     public Video processing(final VideoMediaType aType) {
         if (VideoMediaType.VIDEO == aType) {
             getVideo()
-                    .ifPresent(media -> setVideo(media.processing()));
+                    .ifPresent(media -> updateVideoMedia(media.processing()));
         } else if (VideoMediaType.TRAILER == aType) {
             getTrailer()
-                    .ifPresent(media -> setTrailer(media.processing()));
+                    .ifPresent(media -> updateTrailerMedia(media.processing()));
         }
 
         return this;
@@ -372,14 +384,21 @@ public class Video extends AggregateRoot<VideoID> {
     public Video completed(final VideoMediaType aType, final String encodedPath) {
         if (VideoMediaType.VIDEO == aType) {
             getVideo()
-                    .ifPresent(media -> setVideo(media.completed(encodedPath)));
+                    .ifPresent(media -> updateVideoMedia(media.completed(encodedPath)));
         } else if (VideoMediaType.TRAILER == aType) {
             getTrailer()
-                    .ifPresent(media -> setTrailer(media.completed(encodedPath)));
+                    .ifPresent(media -> updateTrailerMedia(media.completed(encodedPath)));
         }
 
         return this;
     }
 
 
+
+
+    private void onAudioVideoMediaUpdated(final AudioVideoMedia media) {
+        if (media != null && media.isPendingEncode()) {
+            this.registerEvent(new VideoMediaCreated(getId().getValue(), media.rawLocation()));
+        }
+    }
 }
