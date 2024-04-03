@@ -23,6 +23,7 @@ import com.pedromonteiro.infrastructure.video.models.CreateVideoRequest;
 import com.pedromonteiro.infrastructure.video.models.UpdateVideoRequest;
 import com.pedromonteiro.infrastructure.video.models.VideoListResponse;
 import com.pedromonteiro.infrastructure.video.models.VideoResponse;
+import com.pedromonteiro.infrastructure.video.presenters.VideoApiPresenter;
 
 public class VideoController implements VideoAPI {
 
@@ -121,10 +122,9 @@ public class VideoController implements VideoAPI {
         return ResponseEntity.created(URI.create("/videos/" + output.id())).body(output);
     }
 
-    @Override
-    public VideoResponse getById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+@Override
+    public VideoResponse getById(final String anId) {
+        return VideoApiPresenter.present(this.getVideoByIdUseCase.execute(anId));
     }
 
     @Override

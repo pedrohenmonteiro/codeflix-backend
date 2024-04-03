@@ -12,7 +12,7 @@ import com.pedromonteiro.domain.genre.GenreID;
 import com.pedromonteiro.domain.utils.InstantUtils;
 import com.pedromonteiro.domain.validation.handler.ThrowsValidationHandler;
 
-public class VideoTest extends UnitTest {
+public class VideoTest {
 
     @Test
     public void givenValidParams_whenCallsNewVideo_shouldInstantiate() {
