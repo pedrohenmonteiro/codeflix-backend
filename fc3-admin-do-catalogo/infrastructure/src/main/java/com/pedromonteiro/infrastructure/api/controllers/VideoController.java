@@ -14,6 +14,7 @@ import com.pedromonteiro.application.video.media.get.GetMediaUseCase;
 import com.pedromonteiro.application.video.media.upload.UploadMediaUseCase;
 import com.pedromonteiro.application.video.retrieve.get.GetVideoByIdUseCase;
 import com.pedromonteiro.application.video.retrieve.list.ListVideosUseCase;
+import com.pedromonteiro.application.video.update.UpdateVideoCommand;
 import com.pedromonteiro.application.video.update.UpdateVideoUseCase;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.video.Resource;
@@ -127,16 +128,32 @@ public class VideoController implements VideoAPI {
         return VideoApiPresenter.present(this.getVideoByIdUseCase.execute(anId));
     }
 
-    @Override
-    public ResponseEntity<?> update(String id, UpdateVideoRequest payload) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+      @Override
+    public ResponseEntity<?> update(final String id, final UpdateVideoRequest payload) {
+        final var aCmd = UpdateVideoCommand.with(
+                id,
+                payload.title(),
+                payload.description(),
+                payload.yearLaunched(),
+                payload.duration(),
+                payload.opened(),
+                payload.published(),
+                payload.rating(),
+                payload.categories(),
+                payload.genres(),
+                payload.castMembers()
+        );
+
+        final var output = this.updateVideoUseCase.execute(aCmd);
+
+        return ResponseEntity.ok()
+                .location(URI.create("/videos/" + output.id()))
+                .body(VideoApiPresenter.present(output));
     }
 
     @Override
-    public void deleteById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    public void deleteById(final String id) {
+        this.deleteVideoUseCase.execute(id);
     }
 
     @Override
