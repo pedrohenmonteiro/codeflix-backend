@@ -62,6 +62,7 @@ import com.pedromonteiro.domain.exceptions.NotFoundException;
 import com.pedromonteiro.domain.exceptions.NotificationException;
 import com.pedromonteiro.domain.genre.GenreID;
 import com.pedromonteiro.domain.pagination.Pagination;
+import com.pedromonteiro.domain.validation.Error;
 import com.pedromonteiro.domain.video.Video;
 import com.pedromonteiro.domain.video.VideoID;
 import com.pedromonteiro.domain.video.VideoMediaType;
@@ -548,7 +549,6 @@ public class VideoAPITest {
         // when
 
         final var aRequest = put("/videos/{id}", expectedId.getValue())
-                .with(ApiTest.GENRES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCmd));
@@ -607,7 +607,6 @@ public class VideoAPITest {
 
         // when
         final var aRequest = get("/videos")
-                .with(ApiTest.GENRES_JWT)
                 .queryParam("page", String.valueOf(expectedPage))
                 .queryParam("perPage", String.valueOf(expectedPerPage))
                 .queryParam("sort", expectedSort)

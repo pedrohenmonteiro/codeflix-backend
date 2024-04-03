@@ -1,4 +1,4 @@
-package com.fullcycle.admin.catalogo.application.video.media.get;
+package com.pedromonteiro.application.video.media.get;
 
 public record GetMediaCommand(
         String videoId,

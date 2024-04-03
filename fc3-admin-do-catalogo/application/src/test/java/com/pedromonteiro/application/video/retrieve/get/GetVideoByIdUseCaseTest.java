@@ -1,8 +1,8 @@
 package com.pedromonteiro.application.video.retrieve.get;
 
 
-import static com.fullcycle.admin.catalogo.domain.Fixture.Videos.audioVideo;
-import static com.fullcycle.admin.catalogo.domain.Fixture.Videos.image;
+import static com.pedromonteiro.domain.Fixture.Videos.audioVideo;
+import static com.pedromonteiro.domain.Fixture.Videos.image;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

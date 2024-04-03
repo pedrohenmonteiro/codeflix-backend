@@ -1,4 +1,4 @@
-package com.fullcycle.admin.catalogo.infrastructure.video.models;
+package com.pedromonteiro.infrastructure.video.models;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

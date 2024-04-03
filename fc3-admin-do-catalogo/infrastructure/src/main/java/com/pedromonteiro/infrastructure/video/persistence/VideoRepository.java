@@ -13,7 +13,7 @@ import com.pedromonteiro.domain.video.VideoPreview;
 public interface VideoRepository extends JpaRepository<VideoJpaEntity, String> {
 
      @Query("""
-            select distinct new com.fullcycle.admin.catalogo.domain.video.VideoPreview(
+            select distinct new com.pedromonteiro.domain.video.VideoPreview(
                 v.id as id,
                 v.title as title,
                 v.description as description,

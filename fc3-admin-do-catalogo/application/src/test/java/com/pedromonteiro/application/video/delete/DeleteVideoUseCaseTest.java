@@ -16,6 +16,8 @@ import org.mockito.Mock;
 
 import com.pedromonteiro.application.UseCaseTest;
 import com.pedromonteiro.application.video.delete.DefaultDeleteVideoUseCase;
+import com.pedromonteiro.domain.exceptions.InternalErrorException;
+import com.pedromonteiro.domain.video.MediaResourceGateway;
 import com.pedromonteiro.domain.video.VideoGateway;
 import com.pedromonteiro.domain.video.VideoID;
 

@@ -22,21 +22,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.pedromonteiro.application.UseCaseTest;
-import com.pedromonteiro.application.video.update.DefaultUpdateVideoUseCase;
-import com.pedromonteiro.application.video.update.UpdateVideoCommand;
 import com.pedromonteiro.domain.Fixture;
 import com.pedromonteiro.domain.castmember.CastMemberGateway;
 import com.pedromonteiro.domain.castmember.CastMemberID;
 import com.pedromonteiro.domain.category.CategoryGateway;
 import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.exceptions.DomainException;
+import com.pedromonteiro.domain.exceptions.InternalErrorException;
 import com.pedromonteiro.domain.exceptions.NotificationException;
 import com.pedromonteiro.domain.genre.GenreGateway;
 import com.pedromonteiro.domain.genre.GenreID;
 import com.pedromonteiro.domain.video.AudioVideoMedia;
 import com.pedromonteiro.domain.video.ImageMedia;
+import com.pedromonteiro.domain.video.MediaResourceGateway;
+import com.pedromonteiro.domain.video.Resource;
 import com.pedromonteiro.domain.video.Video;
 import com.pedromonteiro.domain.video.VideoGateway;
+import com.pedromonteiro.domain.video.VideoMediaType;
+import com.pedromonteiro.domain.video.VideoResource;
 
 public class UpdateVideoUseCaseTest extends UseCaseTest {
 

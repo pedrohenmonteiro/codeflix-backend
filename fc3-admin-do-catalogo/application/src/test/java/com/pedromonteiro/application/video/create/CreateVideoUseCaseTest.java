@@ -36,7 +36,7 @@ import com.pedromonteiro.domain.video.MediaResourceGateway;
 import com.pedromonteiro.domain.video.Resource;
 import com.pedromonteiro.domain.video.VideoGateway;
 import com.pedromonteiro.domain.video.VideoMediaType;
-import com.pedromonteiro.domain.video.VideoResource
+import com.pedromonteiro.domain.video.VideoResource;
 
 public class CreateVideoUseCaseTest extends UseCaseTest {
 

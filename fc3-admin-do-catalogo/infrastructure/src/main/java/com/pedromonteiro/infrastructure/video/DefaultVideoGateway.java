@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 
 import com.pedromonteiro.domain.Identifier;
 import com.pedromonteiro.domain.pagination.Pagination;
@@ -24,6 +25,7 @@ import com.pedromonteiro.infrastructure.video.persistence.VideoRepository;
 
 import jakarta.transaction.Transactional;
 
+@Component
 public class DefaultVideoGateway implements VideoGateway {
     private final EventService eventService;
     private final VideoRepository videoRepository;

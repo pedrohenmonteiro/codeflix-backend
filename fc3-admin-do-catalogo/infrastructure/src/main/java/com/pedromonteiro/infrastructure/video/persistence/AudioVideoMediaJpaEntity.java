@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity(name = "AudioVideoMedia")
 @Table(name = "videos_video_media")
 public class AudioVideoMediaJpaEntity {
@@ -38,12 +39,14 @@ public class AudioVideoMediaJpaEntity {
     }
 
     private AudioVideoMediaJpaEntity(
+            final String id,
             final String checksum,
             final String name,
             final String filePath,
             final String encodedPath,
             final MediaStatus status
     ) {
+        this.id = id;
         this.checksum = checksum;
         this.name = name;
         this.filePath = filePath;
@@ -53,6 +56,7 @@ public class AudioVideoMediaJpaEntity {
 
     public static AudioVideoMediaJpaEntity from(final AudioVideoMedia media) {
         return new AudioVideoMediaJpaEntity(
+                media.id(),
                 media.checksum(),
                 media.name(),
                 media.rawLocation(),
@@ -63,6 +67,7 @@ public class AudioVideoMediaJpaEntity {
 
     public AudioVideoMedia toDomain() {
         return AudioVideoMedia.with(
+                getId(),
                 getChecksum(),
                 getName(),
                 getFilePath(),

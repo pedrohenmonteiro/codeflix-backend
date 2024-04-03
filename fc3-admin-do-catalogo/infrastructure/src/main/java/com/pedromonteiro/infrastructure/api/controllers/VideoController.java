@@ -1,23 +1,36 @@
 package com.pedromonteiro.infrastructure.api.controllers;
 
+import static com.pedromonteiro.domain.utils.CollectionUtils.mapTo;
+
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pedromonteiro.application.video.create.CreateVideoCommand;
 import com.pedromonteiro.application.video.create.CreateVideoUseCase;
 import com.pedromonteiro.application.video.delete.DeleteVideoUseCase;
+import com.pedromonteiro.application.video.media.get.GetMediaCommand;
 import com.pedromonteiro.application.video.media.get.GetMediaUseCase;
+import com.pedromonteiro.application.video.media.upload.UploadMediaCommand;
 import com.pedromonteiro.application.video.media.upload.UploadMediaUseCase;
 import com.pedromonteiro.application.video.retrieve.get.GetVideoByIdUseCase;
 import com.pedromonteiro.application.video.retrieve.list.ListVideosUseCase;
 import com.pedromonteiro.application.video.update.UpdateVideoCommand;
 import com.pedromonteiro.application.video.update.UpdateVideoUseCase;
+import com.pedromonteiro.domain.castmember.CastMemberID;
+import com.pedromonteiro.domain.category.CategoryID;
+import com.pedromonteiro.domain.exceptions.NotificationException;
+import com.pedromonteiro.domain.genre.GenreID;
 import com.pedromonteiro.domain.pagination.Pagination;
 import com.pedromonteiro.domain.video.Resource;
+import com.pedromonteiro.domain.video.VideoMediaType;
+import com.pedromonteiro.domain.video.VideoResource;
+import com.pedromonteiro.domain.video.VideoSearchQuery;
 import com.pedromonteiro.infrastructure.api.VideoAPI;
 import com.pedromonteiro.infrastructure.utils.HashingUtils;
 import com.pedromonteiro.infrastructure.video.models.CreateVideoRequest;
@@ -25,6 +38,7 @@ import com.pedromonteiro.infrastructure.video.models.UpdateVideoRequest;
 import com.pedromonteiro.infrastructure.video.models.VideoListResponse;
 import com.pedromonteiro.infrastructure.video.models.VideoResponse;
 import com.pedromonteiro.infrastructure.video.presenters.VideoApiPresenter;
+import com.pedromonteiro.domain.validation.Error;
 
 public class VideoController implements VideoAPI {
 
@@ -55,11 +69,25 @@ public class VideoController implements VideoAPI {
         this.uploadMediaUseCase = Objects.requireNonNull(uploadMediaUseCase);
     }
 
-    @Override
-    public Pagination<VideoListResponse> list(String search, int page, int perPage, String sort, String direction,
-            Set<String> castMembers, Set<String> categories, Set<String> genres) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'list'");
+   @Override
+    public Pagination<VideoListResponse> list(
+            final String search,
+            final int page,
+            final int perPage,
+            final String sort,
+            final String direction,
+            final Set<String> castMembers,
+            final Set<String> categories,
+            final Set<String> genres
+    ) {
+        final var castMemberIDs = mapTo(castMembers, CastMemberID::from);
+        final var categoriesIDs = mapTo(categories, CategoryID::from);
+        final var genresIDs = mapTo(genres, GenreID::from);
+
+        final var aQuery =
+                new VideoSearchQuery(page, perPage, search, sort, direction, castMemberIDs, categoriesIDs, genresIDs);
+
+        return VideoApiPresenter.present(this.listVideosUseCase.execute(aQuery));
     }
 
     @Override
@@ -157,15 +185,30 @@ public class VideoController implements VideoAPI {
     }
 
     @Override
-    public ResponseEntity<byte[]> getMediaByType(String id, String type) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMediaByType'");
+    public ResponseEntity<byte[]> getMediaByType(final String id, final String type) {
+        final var aMedia =
+                this.getMediaUseCase.execute(GetMediaCommand.with(id, type));
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.valueOf(aMedia.contentType()))
+                .contentLength(aMedia.content().length)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=%s".formatted(aMedia.name()))
+                .body(aMedia.content());
     }
 
-    @Override
-    public ResponseEntity<?> uploadMediaByType(String id, String type, MultipartFile media) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'uploadMediaByType'");
+     @Override
+    public ResponseEntity<?> uploadMediaByType(final String id, final String type, final MultipartFile media) {
+        final var aType = VideoMediaType.of(type)
+                .orElseThrow(() -> NotificationException.with(new Error("Invalid %s for VideoMediaType".formatted(type))));
+
+        final var aCmd =
+                UploadMediaCommand.with(id, VideoResource.with(aType, resourceOf(media)));
+
+        final var output = this.uploadMediaUseCase.execute(aCmd);
+
+        return ResponseEntity
+                .created(URI.create("/videos/%s/medias/%s".formatted(id, type)))
+                .body(VideoApiPresenter.present(output));
     }
     
     private Resource resourceOf(final MultipartFile part) {

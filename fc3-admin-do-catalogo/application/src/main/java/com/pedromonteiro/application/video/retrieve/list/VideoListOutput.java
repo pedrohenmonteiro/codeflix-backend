@@ -3,6 +3,7 @@ package com.pedromonteiro.application.video.retrieve.list;
 import java.time.Instant;
 
 import com.pedromonteiro.domain.video.Video;
+import com.pedromonteiro.domain.video.VideoPreview;
 
 public record VideoListOutput(
         String id,
@@ -22,5 +23,13 @@ public record VideoListOutput(
         );
     }
 
- 
+    public static VideoListOutput from(final VideoPreview aVideo) {
+        return new VideoListOutput(
+                aVideo.id(),
+                aVideo.title(),
+                aVideo.description(),
+                aVideo.createdAt(),
+                aVideo.updatedAt()
+        );
+    }
 }

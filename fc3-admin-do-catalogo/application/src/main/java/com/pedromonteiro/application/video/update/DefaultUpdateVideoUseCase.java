@@ -1,7 +1,5 @@
 package com.pedromonteiro.application.video.update;
 
-import static com.fullcycle.admin.catalogo.domain.video.VideoMediaType.*;
-
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,10 @@ import com.pedromonteiro.domain.video.Video;
 import com.pedromonteiro.domain.video.VideoGateway;
 import com.pedromonteiro.domain.video.VideoID;
 import com.pedromonteiro.domain.video.VideoResource;
+import com.pedromonteiro.domain.validation.Error;
+
+import static com.pedromonteiro.domain.video.VideoMediaType.*;
+
 
 public class DefaultUpdateVideoUseCase extends UpdateVideoUseCase {
 

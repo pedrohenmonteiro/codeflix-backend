@@ -26,6 +26,8 @@ import com.pedromonteiro.domain.video.Video;
 import com.pedromonteiro.domain.video.VideoGateway;
 import com.pedromonteiro.domain.video.VideoResource;
 
+import static com.pedromonteiro.domain.video.VideoMediaType.*;
+
 public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
 
     private final CategoryGateway categoryGateway;
