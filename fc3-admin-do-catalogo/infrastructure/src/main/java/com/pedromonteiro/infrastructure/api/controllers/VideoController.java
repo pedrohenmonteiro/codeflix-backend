@@ -102,9 +102,23 @@ public class VideoController implements VideoAPI {
     }
 
     @Override
-    public ResponseEntity<?> createPartial(CreateVideoRequest payload) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createPartial'");
+    public ResponseEntity<?> createPartial(final CreateVideoRequest payload) {
+        final var aCmd = CreateVideoCommand.with(
+                payload.title(),
+                payload.description(),
+                payload.yearLaunched(),
+                payload.duration(),
+                payload.opened(),
+                payload.published(),
+                payload.rating(),
+                payload.categories(),
+                payload.genres(),
+                payload.castMembers()
+        );
+
+        final var output = this.createVideoUseCase.execute(aCmd);
+
+        return ResponseEntity.created(URI.create("/videos/" + output.id())).body(output);
     }
 
     @Override
