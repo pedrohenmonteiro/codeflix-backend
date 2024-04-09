@@ -31,6 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pedromonteiro.ApiTest;
 import com.pedromonteiro.ControllerTest;
 import com.pedromonteiro.application.category.create.CreateCategoryOutput;
 import com.pedromonteiro.application.category.create.CreateCategoryUseCase;
@@ -90,6 +91,7 @@ public class CategoryAPITest {
 
         // when
         final var request = post("/categories")
+                .with(ApiTest.CATEGORIES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(aInput));
 
@@ -109,8 +111,7 @@ public class CategoryAPITest {
         ));
     }
 
-
-        @Test
+    @Test
     public void givenAInvalidName_whenCallsCreateCategory_thenShouldReturnNotification() throws Exception {
         // given
         final String expectedName = null;
@@ -126,6 +127,7 @@ public class CategoryAPITest {
 
         // when
         final var request = post("/categories")
+                .with(ApiTest.CATEGORIES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(aInput));
 
@@ -146,8 +148,7 @@ public class CategoryAPITest {
         ));
     }
 
-
-     @Test
+    @Test
     public void givenAInvalidCommand_whenCallsCreateCategory_thenShouldReturnDomainException() throws Exception {
         // given
         final String expectedName = null;
@@ -163,6 +164,7 @@ public class CategoryAPITest {
 
         // when
         final var request = post("/categories")
+                .with(ApiTest.CATEGORIES_JWT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(aInput));
 
@@ -184,8 +186,7 @@ public class CategoryAPITest {
         ));
     }
 
-
-     @Test
+    @Test
     public void givenAValidId_whenCallsGetCategory_shouldReturnCategory() throws Exception {
         // given
         final var expectedName = "Filmes";
@@ -202,6 +203,7 @@ public class CategoryAPITest {
 
         // when
         final var request = get("/categories/{id}", expectedId)
+                .with(ApiTest.CATEGORIES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -222,7 +224,6 @@ public class CategoryAPITest {
         verify(getCategoryByIdUseCase, times(1)).execute(eq(expectedId));
     }
 
-    
     @Test
     public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() throws Exception {
         // given
@@ -234,6 +235,7 @@ public class CategoryAPITest {
 
         // when
         final var request = get("/categories/{id}", expectedId.getValue())
+                .with(ApiTest.CATEGORIES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -245,7 +247,7 @@ public class CategoryAPITest {
                 .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
     }
 
-     @Test
+    @Test
     public void givenAValidCommand_whenCallsUpdateCategory_shouldReturnCategoryId() throws Exception {
         // given
         final var expectedId = "123";
@@ -261,6 +263,7 @@ public class CategoryAPITest {
 
         // when
         final var request = put("/categories/{id}", expectedId)
+                .with(ApiTest.CATEGORIES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommand));
@@ -299,6 +302,7 @@ public class CategoryAPITest {
 
         // when
         final var request = put("/categories/{id}", expectedId)
+                .with(ApiTest.CATEGORIES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommand));
@@ -337,6 +341,7 @@ public class CategoryAPITest {
 
         // when
         final var request = put("/categories/{id}", expectedId)
+                .with(ApiTest.CATEGORIES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(aCommand));
@@ -356,7 +361,7 @@ public class CategoryAPITest {
         ));
     }
 
-     @Test
+    @Test
     public void givenAValidId_whenCallsDeleteCategory_shouldReturnNoContent() throws Exception {
         // given
         final var expectedId = "123";
@@ -366,6 +371,7 @@ public class CategoryAPITest {
 
         // when
         final var request = delete("/categories/{id}", expectedId)
+                .with(ApiTest.CATEGORIES_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -378,8 +384,7 @@ public class CategoryAPITest {
         verify(deleteCategoryUseCase, times(1)).execute(eq(expectedId));
     }
 
-
-     @Test
+    @Test
     public void givenValidParams_whenCallsListCategories_shouldReturnCategories() throws Exception {
         // given
         final var aCategory = Category.newCategory("Movies", null, true);
@@ -399,6 +404,7 @@ public class CategoryAPITest {
 
         // when
         final var request = get("/categories")
+                .with(ApiTest.CATEGORIES_JWT)
                 .queryParam("page", String.valueOf(expectedPage))
                 .queryParam("perPage", String.valueOf(expectedPerPage))
                 .queryParam("sort", expectedSort)

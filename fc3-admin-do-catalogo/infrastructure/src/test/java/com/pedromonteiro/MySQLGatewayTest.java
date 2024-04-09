@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
         basePackages = "com.pedromonteiro",
         useDefaultFilters = false,
         includeFilters = {
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".MySQLGateway")
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MySQLGateway")
         }
 )
 @DataJpaTest
