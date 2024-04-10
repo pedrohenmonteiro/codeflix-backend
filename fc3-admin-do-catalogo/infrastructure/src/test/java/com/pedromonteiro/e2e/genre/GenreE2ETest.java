@@ -19,6 +19,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import com.pedromonteiro.ApiTest;
 import com.pedromonteiro.E2ETest;
 import com.pedromonteiro.domain.category.CategoryID;
 import com.pedromonteiro.domain.genre.GenreID;
@@ -213,6 +214,7 @@ public class GenreE2ETest implements MockDsl {
         Assertions.assertEquals(0, genreRepository.count());
 
         final var aRequest = get("/genres/123")
+                .with(ApiTest.ADMIN_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 

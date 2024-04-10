@@ -22,7 +22,7 @@ import com.pedromonteiro.infrastructure.configuration.properties.google.GoogleSt
 
 
 @Configuration
-@Profile({"development", "production"})
+@Profile({"!development & !test-integration & !test-e2e"})
 public class GoogleCloudConfig {
     
     @Bean
